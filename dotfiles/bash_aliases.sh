@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Easier navigation: .., ..., ...., ....., ~ and -
+# Easier navigation: .., ..., ...., ..... and --
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias -- -="cd -"
+alias -- --="cd - > /dev/null"
 
 # Shortcuts
 alias cddb="cd ~/Documents/Dropbox"
@@ -37,8 +37,8 @@ alias sudo='sudo '
 alias update_everything='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup'
 
 # Show/hide hidden files in Finder
-alias show_hidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide_hidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias showhidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidehidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
@@ -54,4 +54,5 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
+# Load R quietly
 alias Rq='R --quiet'
