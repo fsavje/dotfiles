@@ -1,0 +1,13 @@
+if (interactive()) {
+  suppressMessages(require(devtools))
+  suppressMessages(require(testthat))
+}
+
+attach(
+  list(
+    table0 = function(...) { table(list(...), useNA='ifany') },
+    sum0 = function(...) { sum(..., na.rm=TRUE) },
+    mean0 = function(...) { mean(..., na.rm=TRUE) },
+  ),
+  name = "initFunctions"
+)
