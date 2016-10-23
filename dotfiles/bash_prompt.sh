@@ -13,7 +13,17 @@ bashc_violet=$(tput setaf 61)
 bashc_white=$(tput setaf 15)
 bashc_yellow=$(tput setaf 136)
 
-prompt_git() {
+
+__prompt_errorcode() {
+	if [ "${?}" == "0" ]; then
+		return
+	else
+		echo -e "${1}[Exit Status: ${?}]\n${2}"
+	fi
+}
+
+
+__prompt_git() {
 	local s=''
 	local branchName=''
 
@@ -62,25 +72,71 @@ prompt_git() {
 	fi
 }
 
-prompt_errorcode() {
-	if [ "${?}" == "0" ]; then
-		return
-	else
-		echo -e "${1}[Exit Status: ${?}]\n${2}"
-	fi
+
+__prompt_parse() {
+	case "$1" in
+		nopath|hidepath)  export PROMPT_PATH="nopath"    ;;
+		basepath)         export PROMPT_PATH="basepath"  ;;
+		fullpath)         export PROMPT_PATH="fullpath"  ;;
+		path)
+			if [[ "${PROMPT_PATH}" == "basepath" ]]; then
+				export PROMPT_PATH="fullpath"
+			elif [[ "${PROMPT_PATH}" == "fullpath" ]]; then
+				export PROMPT_PATH="nopath"
+			else
+				export PROMPT_PATH="basepath"
+			fi
+			;;
+		showgit)  export PROMPT_GIT=true   ;;
+		hidegit)  export PROMPT_GIT=false  ;;
+		git)
+			if [ "${PROMPT_GIT}" = true ]; then
+				export PROMPT_GIT=false
+			else
+				export PROMPT_GIT=true
+			fi
+			;;
+		*)
+			echo "usage: prompt nopath|basepath|fullpath|path|showgit|hidegit|git"
+		    echo "  nopath        don't show path"
+		    echo "  basepath      show base path"
+		    echo "  fullpath      show full path"
+		    echo "  path          toggle between nopath/basepath/fullpath"
+		    echo "  showgit       show git info"
+		    echo "  hidegit       don't show git info"
+		    echo "  git           toggle between showgit/hidegit"
+		    return
+		    ;;
+	esac
 }
 
-PS1="\$(prompt_errorcode \"\[${bashc_red}\]\" \"\[${bashc_reset}\]\")"
-if [[ "${USER}" == "root" ]]; then
-	PS1+="\[${bashc_orange}\]\u\[${bashc_blue}\]"
-else
-	PS1+="\[${bashc_blue}\]\u"
-fi
-if [[ "${SSH_TTY}" ]]; then
-	PS1+="@\[${bashc_orange}\]\h\[${bashc_blue}\]"
-fi;
-PS1+=":\W"
-PS1+="\$(prompt_git \"\[${bashc_orange}\]\" \"\[${bashc_blue}\]\")"
-PS1+="\\\$\[${bashc_reset}\] "
 
-export PS1
+prompt() {
+	__prompt_parse "$1"
+	[ -n "$2" ] && __prompt_parse "$2"
+
+	PS1="\$(__prompt_errorcode \"\[${bashc_red}\]\" \"\[${bashc_reset}\]\")"
+	if [[ "${USER}" == "root" ]]; then
+		PS1+="\[${bashc_orange}\]\u\[${bashc_blue}\]"
+	else
+		PS1+="\[${bashc_blue}\]\u"
+	fi
+	if [[ "${SSH_TTY}" ]]; then
+		PS1+="@\[${bashc_orange}\]\h\[${bashc_blue}\]"
+	fi;
+	if [[ "${PROMPT_PATH}" == "basepath" ]]; then
+		PS1+=":\W"
+	elif [[ "${PROMPT_PATH}" == "fullpath" ]]; then
+		PS1+=":\w"
+	fi
+	if [[ "${PROMPT_GIT}" = true ]]; then
+		PS1+="\$(__prompt_git \"\[${bashc_orange}\]\" \"\[${bashc_blue}\]\")"
+	fi
+	PS1+="\\\$\[${bashc_reset}\] "
+
+	export PS1
+}
+
+complete -W "nopath basepath fullpath path showgit hidegit git" prompt
+
+prompt basepath showgit
