@@ -13,16 +13,22 @@ alias cddl="cd ~/Downloads"
 alias cddt="cd ~/Desktop"
 
 # List all files colorized in long format
-alias lsl="ls -lhGF"
+alias lsl="ls -lhG"
 
 # List all files colorized in long format, including dot files
-alias lsa="ls -lahGF"
+alias lsa="ls -lahG"
 
 # List only directories
-alias lsd="ls -lGF | grep --color=never '^d'"
+alias lsd="ls -la | grep --color=never '^d'"
 
 # Always use color output for `ls`
 alias ls="command ls -G"
+
+# Always use color output for `tree`
+alias tree="command tree -C --dirsfirst"
+
+# Always use color output for `tree`
+alias treea="command tree -aC --dirsfirst -I '.git'"
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -33,12 +39,25 @@ alias egrep='egrep --color=auto'
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
+# macOS has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+
+# macOS has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum="shasum"
+
+# IP addresses
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update_everything='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup'
 
 # Show/hide hidden files in Finder
 alias showhidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hidehidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
@@ -52,7 +71,10 @@ alias alert="tput bel"
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
+alias reloadshell="exec $SHELL -l"
+
+# Print each PATH entry on a separate line
+alias pathprint='echo -e ${PATH//:/\\n}'
 
 # Load R quietly
 alias Rq='R --quiet'

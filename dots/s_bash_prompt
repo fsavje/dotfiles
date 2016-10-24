@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
 
-bashc_bold=$(tput bold)
-bashc_reset=$(tput sgr0)
-bashc_black=$(tput setaf 0)
-bashc_blue=$(tput setaf 33)
-bashc_cyan=$(tput setaf 37)
-bashc_green=$(tput setaf 64)
-bashc_orange=$(tput setaf 166)
-bashc_purple=$(tput setaf 125)
-bashc_red=$(tput setaf 124)
-bashc_violet=$(tput setaf 61)
-bashc_white=$(tput setaf 15)
-bashc_yellow=$(tput setaf 136)
-
-
 __prompt_errorcode() {
 	if [ "${?}" == "0" ]; then
 		return
@@ -75,38 +61,42 @@ __prompt_git() {
 
 __prompt_parse() {
 	case "$1" in
-		nopath|hidepath)  export PROMPT_PATH="nopath"    ;;
-		basepath)         export PROMPT_PATH="basepath"  ;;
-		fullpath)         export PROMPT_PATH="fullpath"  ;;
+		nopath|hidepath)  PROMPT_PATH="nopath"    ;;
+		basepath)         PROMPT_PATH="basepath"  ;;
+		fullpath)         PROMPT_PATH="fullpath"  ;;
 		path)
 			if [[ "${PROMPT_PATH}" == "basepath" ]]; then
-				export PROMPT_PATH="fullpath"
+				PROMPT_PATH="fullpath"
 			elif [[ "${PROMPT_PATH}" == "fullpath" ]]; then
-				export PROMPT_PATH="nopath"
+				PROMPT_PATH="nopath"
 			else
-				export PROMPT_PATH="basepath"
+				PROMPT_PATH="basepath"
 			fi
 			;;
-		showgit)  export PROMPT_GIT=true   ;;
-		hidegit)  export PROMPT_GIT=false  ;;
+		showgit)  PROMPT_GIT=true   ;;
+		hidegit)  PROMPT_GIT=false  ;;
 		git)
 			if [ "${PROMPT_GIT}" = true ]; then
-				export PROMPT_GIT=false
+				PROMPT_GIT=false
 			else
-				export PROMPT_GIT=true
+				PROMPT_GIT=true
 			fi
 			;;
+		reset)
+			PROMPT_PATH="basepath"
+			PROMPT_GIT=true
+			;;
 		*)
-			echo "usage: prompt nopath|basepath|fullpath|path|showgit|hidegit|git"
-		    echo "  nopath        don't show path"
-		    echo "  basepath      show base path"
-		    echo "  fullpath      show full path"
-		    echo "  path          toggle between nopath/basepath/fullpath"
-		    echo "  showgit       show git info"
-		    echo "  hidegit       don't show git info"
-		    echo "  git           toggle between showgit/hidegit"
-		    return
-		    ;;
+			echo "usage: prompt nopath|basepath|fullpath|path|showgit|hidegit|git|reset"
+			echo "  nopath        don't show path"
+			echo "  basepath      show base path"
+			echo "  fullpath      show full path"
+			echo "  path          toggle between nopath/basepath/fullpath"
+			echo "  showgit       show git info"
+			echo "  hidegit       don't show git info"
+			echo "  git           toggle between showgit/hidegit"
+			echo "  reset         reset to default (basepath/showgit)"
+			;;
 	esac
 }
 
@@ -137,6 +127,6 @@ prompt() {
 	export PS1
 }
 
-complete -W "nopath basepath fullpath path showgit hidegit git" prompt
+complete -W "nopath basepath fullpath path showgit hidegit git reset" prompt
 
-prompt basepath showgit
+prompt reset

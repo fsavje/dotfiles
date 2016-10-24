@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# If not running interactively, return
+[ -z "$PS1" ] && return
+
+# Run only once
+[ -n "$BASH_CONFIG_DONE" ] && return
+BASH_CONFIG_DONE=true
+
+# Colors
+bashc_bold=$(tput bold)
+bashc_underline=$(tput smul)
+bashc_reset=$(tput sgr0)
+bashc_black=$(tput setaf 0)
+bashc_blue=$(tput setaf 32)
+bashc_cyan=$(tput setaf 37)
+bashc_green=$(tput setaf 64)
+bashc_orange=$(tput setaf 166)
+bashc_purple=$(tput setaf 125)
+bashc_red=$(tput setaf 124)
+bashc_violet=$(tput setaf 61)
+bashc_white=$(tput setaf 15)
+bashc_yellow=$(tput setaf 136)
+
+# Load config files
+[ -r "${HOME}/.dotfiles/dots/s_bash_path" ] &&         source ${HOME}/.dotfiles/dots/s_bash_path
+[ -r "${HOME}/.dotfiles/dots/s_bash_exports" ] &&      source ${HOME}/.dotfiles/dots/s_bash_exports
+[ -r "${HOME}/.dotfiles/dots/s_bash_functions" ] &&    source ${HOME}/.dotfiles/dots/s_bash_functions
+[ -r "${HOME}/.dotfiles/dots/s_bash_aliases" ] &&      source ${HOME}/.dotfiles/dots/s_bash_aliases
+[ -r "${HOME}/.dotfiles/dots/s_bash_completions" ] &&  source ${HOME}/.dotfiles/dots/s_bash_completions
+[ -r "${HOME}/.dotfiles/dots/s_bash_prompt" ] &&       source ${HOME}/.dotfiles/dots/s_bash_prompt
+
+# Bash options
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Recursive globbing, e.g. `echo **/*.txt`
+shopt -s globstar

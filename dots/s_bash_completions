@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -r "/usr/local/share/bash-completion/bash_completion"]; then
+if [ -r "/usr/local/share/bash-completion/bash_completion" ]; then
 	source /usr/local/share/bash-completion/bash_completion
 fi
 

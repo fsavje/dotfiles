@@ -1,6 +1,8 @@
+#!/usr/bin/env bash
+
 # Create a new directory and enter it
-function mkg() {
-	mkdir -p "$@" && cd "$@"
+function mkcd() {
+	mkdir -p "$@" && cd "$1"
 }
 
 # Go to directory and list it
@@ -8,9 +10,22 @@ function cdls() {
 	cd "$1" && ls
 }
 
+# Change working directory to the top-most Finder window location
+function cdf() { # short for `cdfinder`
+	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+}
+
+# Use Git’s colored diff when available
+which git &>/dev/null
+if [ $? -eq 0 ]; then
+	function diff() {
+		git diff --no-index "$@"
+	}
+fi;
+
 # Open man page as PDF
 function manpdf() {
-	man -t "${1}" | open -f -a /Applications/Preview.app/
+	man -t "$1" | open -f -a /Applications/Preview.app/
 }
 
 # Extra many types of compressed packages
@@ -38,22 +53,22 @@ extract() {
 	fi
 }
 
-# `s` with no arguments opens the current directory in Sublime Text, otherwise
-# opens the given location
-function s() {
-	if [ $# -eq 0 ]; then
-		subl .
+# Determine size of a file or total size of a directory
+function fsize() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local ARG=-sbh
+		local DU=du
+	elif gdu -b /dev/null > /dev/null 2>&1; then
+		local ARG=-sbh
+		local DU=gdu
 	else
-		subl "$@"
+		local ARG=-sh
+		local DU=du
 	fi
-}
-
-# `o` with no arguments opens the current directory, otherwise opens the given
-# location
-function o() {
-	if [ $# -eq 0 ]; then
-		open .
+	
+	if [[ -n "$@" ]]; then
+		$DU $ARG -- "$@"
 	else
-		open "$@"
+		$DU $ARG .[^.]* ./*
 	fi
 }
