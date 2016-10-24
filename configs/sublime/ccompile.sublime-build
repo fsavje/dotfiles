@@ -1,0 +1,6 @@
+{
+    "cmd" : ["gcc -std=c99 -O2 -pedantic -Wall -Wextra -Wconversion -Wfloat-equal -Werror -c $file_name -o ${file_base_name}.o && rm ${file_base_name}.o"],
+    "selector" : "source.c",
+    "shell": true,
+    "working_dir" : "$file_path",
+}

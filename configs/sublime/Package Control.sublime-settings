@@ -1,0 +1,17 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Alignment",
+		"DocBlockr",
+		"EditorConfig",
+		"Git​Gutter",
+		"Monokai - Spacegray",
+		"Package Control",
+		"Terminal",
+		"Theme - Spacegray"
+	]
+}
