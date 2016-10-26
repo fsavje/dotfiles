@@ -8,7 +8,8 @@ alias .....="cd ../../../.."
 alias -- --="cd - > /dev/null"
 
 # Shortcuts
-alias cddb="cd ~/Documents/Dropbox"
+alias cdd="cd ~/Dropbox"
+alias cdp="cd ~/Dropbox/Projects"
 alias cddl="cd ~/Downloads"
 alias cddt="cd ~/Desktop"
 
