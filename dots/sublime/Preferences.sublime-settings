@@ -16,15 +16,6 @@
 		"draw_normal",
 		"draw_active"
 	],
-	"installed_packages":
-	[
-		"Alignment",
-		"DocBlockr",
-		"EditorConfig",
-		"Git​Gutter",
-		"Monokai - Spacegray",
-		"Terminal"
-	],
 	"overlay_scroll_bars": "enabled",
 	"rulers":
 	[
@@ -32,8 +23,6 @@
 	],
 	"show_encoding": true,
 	"show_line_endings": true,
-	"spacegray_sidebar_font_small": true,
-	"spacegray_sidebar_tree_small": true,
 	"tab_size": 4,
 	"translate_tabs_to_spaces": false,
 	"trim_trailing_white_space_on_save": true
