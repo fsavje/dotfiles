@@ -75,7 +75,7 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 substep "Set login message"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
-sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "${login_message}"
+sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "I belong to ${login_name}.\n He'll pay a finder's fee if you return me to him.\n${login_phone}      ${login_email}"
 
 substep "Stop iTunes from responding to keyboard media keys"
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null

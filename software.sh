@@ -8,12 +8,6 @@ if ![ -e "functions.sh" ]; then
 fi
 source "functions.sh"
 
-if ![ -e "secrets.sh" ]; then
-	warning "'./secrets.sh' doesn't exists"
-	exit 1
-fi
-source "secrets.sh"
-
 DOTFILES_DIR="${HOME}/.dotfiles"
 if ![ -d "$DOTFILES_DIR" ]; then
 	warning "'~/.dotfiles' doesn't exists"
@@ -166,7 +160,7 @@ step "Make Fastmail app"
 	substep "Save as: Fastmail"
 	substep "Where: Applications"
 	substep "Name: Fastmail"
-	substep "Url: https://www.fastmail.com/mail/Inbox/?u=${fastmail_id}"
+	substep "Url: https://www.fastmail.com/mail/Inbox/?u=3ccb4100"
 	substep "Icon: ~/Downloads/fastmail.icns"
 	open -Wa "Epichrome"
 

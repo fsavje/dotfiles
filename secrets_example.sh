@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-fastmail_id="XXX"
-
 git_username="Example Exampleson"
 git_email="example@exampleson.com"
 
-login_message="This computer belongs to Example Exampleson."
+login_name="Example Exampleson"
+login_phone="555-123-4567"
+login_email="example@exampleson.com"
