@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "> Starting software.sh"
+echo "> Loading helper files"
+
 caffeinate &
 
 if ![ -e "functions.sh" ]; then
@@ -20,18 +23,18 @@ section "Prerequisites"
 ###############################################################################
 
 step "Sudo password"
-action "Please enter your sudo password"
+subaction "Please enter your sudo password"
 until sudo -n true 2> /dev/null; do # if password is wrong, keep asking
 	read -s -p 'Password: ' sudo_password; echo
 	sudo -S -v <<< "${sudo_password}" 2> /dev/null
 done
 
 step "Sign in to Mac App Store"
-action "Please MAS email and password"
+subaction "Please MAS email and password"
 read -p 'MAS email: ' mas_email
 read -s -p 'MAS password: ' mas_password; echo
 
-step "Install command line tools"
+step "Installing command line tools"
 xcode-select --install
 
 step "Accept Xcode license"
@@ -40,19 +43,19 @@ sudo -S xcodebuild -license
 
 
 ###############################################################################
-section "Install command line tools from brew"
+section "Installing command line tools from brew"
 ###############################################################################
 
-step "Install Homebrew"
+step "Installing Homebrew"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-step "Update Homebrew"
+step "Updating Homebrew"
 brew tap caskroom/cask
 brew update
 brew upgrade
 
-step "Install software"
+step "Installing software"
 brew install ack
 brew install bash
 brew install homebrew/versions/bash-completion2
@@ -82,7 +85,7 @@ brew install homebrew/science/r
 
 
 ###############################################################################
-section "Install apps from Cask"
+section "Installing apps from Cask"
 ###############################################################################
 
 brew cask install 1password
@@ -128,13 +131,13 @@ brew cask install webpquicklook
 
 
 ###############################################################################
-section "Install apps from Mac App Store"
+section "Installing apps from Mac App Store"
 ###############################################################################
 
 step "Signing into MAS"
 mas signin "${mas_email}" "${mas_password}"
 
-step "Install MAS apps"
+step "Installing MAS apps"
 mas install 568494494  # Pocket
 mas install 585829637  # Todoist
 mas install 500154009  # Bitdefender Virus Scanner
@@ -149,35 +152,35 @@ section "Make Epichrome apps"
 cp ${DOTFILES_DIR}/misc/{berkeley,fastmail,gmail,messenger}.icns ${HOME}/Downloads/
 
 step "Make bMail app"
-	substep "Save as: bMail"
-	substep "Where: Applications"
-	substep "Name: bMail"
-	substep "Url: https://mail.google.com/mail/u/1/"
-	substep "Icon: ~/Downloads/berkeley.icns"
+	subaction "Save as: bMail"
+	subaction "Where: Applications"
+	subaction "Name: bMail"
+	subaction "Url: https://mail.google.com/mail/u/1/"
+	subaction "Icon: ~/Downloads/berkeley.icns"
 	open -Wa "Epichrome"
 
 step "Make Fastmail app"
-	substep "Save as: Fastmail"
-	substep "Where: Applications"
-	substep "Name: Fastmail"
-	substep "Url: https://www.fastmail.com/mail/Inbox/?u=3ccb4100"
-	substep "Icon: ~/Downloads/fastmail.icns"
+	subaction "Save as: Fastmail"
+	subaction "Where: Applications"
+	subaction "Name: Fastmail"
+	subaction "Url: https://www.fastmail.com/mail/Inbox/?u=3ccb4100"
+	subaction "Icon: ~/Downloads/fastmail.icns"
 	open -Wa "Epichrome"
 
 step "Make Gmail app"
-	substep "Save as: Gmail"
-	substep "Where: Applications"
-	substep "Name: Gmail"
-	substep "Url: https://mail.google.com/mail/u/0/"
-	substep "Icon: ~/Downloads/gmail.icns"
+	subaction "Save as: Gmail"
+	subaction "Where: Applications"
+	subaction "Name: Gmail"
+	subaction "Url: https://mail.google.com/mail/u/0/"
+	subaction "Icon: ~/Downloads/gmail.icns"
 	open -Wa "Epichrome"
 
 step "Make Messenger app"
-	substep "Save as: Messenger"
-	substep "Where: Applications"
-	substep "Name: Messenger"
-	substep "Url: https://www.messenger.com"
-	substep "Icon: ~/Downloads/messenger.icns"
+	subaction "Save as: Messenger"
+	subaction "Where: Applications"
+	subaction "Name: Messenger"
+	subaction "Url: https://www.messenger.com"
+	subaction "Icon: ~/Downloads/messenger.icns"
 	open -Wa "Epichrome"
 
 rm ${HOME}/Downloads/{berkeley,fastmail,gmail,messenger}.icns
@@ -191,4 +194,6 @@ brew cleanup
 
 killall caffeinate
 
-alldone
+echo ""
+echo "$(tput bold)● All done ✅$(tput sgr0)"
+echo ""

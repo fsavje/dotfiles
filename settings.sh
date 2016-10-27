@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+echo "> Starting setting.sh"
+echo "> Loading helper files"
+
 caffeinate &
 
 if ![ -e "functions.sh" ]; then
@@ -29,7 +32,7 @@ step "Close open System Preferences panes"
 osascript -e 'tell application "System Preferences" to quit'
 
 step "Sudo password"
-action "Please enter your sudo password"
+subaction "Please enter your sudo password"
 until sudo -n true 2> /dev/null; do # if password is wrong, keep asking
 	read -s -p 'Password: ' sudo_password; echo
 	sudo -S -v <<< "${sudo_password}" 2> /dev/null
@@ -90,14 +93,13 @@ defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/TextInput.menu"
 
 substep "User settings"
-action "Turn off Guest User account"
-action "Drag photo to user image"
-action "Press enter when done"
+subsubaction "Turn off Guest User account"
+subsubaction "Drag photo to user image"
 osascript -e "tell application \"System Preferences\"
                 activate
                 reveal pane \"com.apple.preferences.users\"
               end tell" &> /dev/null
-read
+waitforenter
 
 
 step "Locale" #################################################################
@@ -138,15 +140,14 @@ defaults write com.apple.HIToolbox AppleEnabledInputSources '( { InputSourceKind
 #osascript -e "tell application \"System Preferences\" to return anchors of current pane"
 
 substep "Keyboard Shortcuts"
-action "Input Sources > alt+cmd+space @ 'Select next source in Input menu'"
-action "Spotlight > Uncheck 'Show Spotlight search'"
-action "Spotlight > Uncheck 'Show Finder search window'"
-action "Press enter when done"
+subsubaction "Input Sources > alt+cmd+space @ 'Select next source in Input menu'"
+subsubaction "Spotlight > Uncheck 'Show Spotlight search'"
+subsubaction "Spotlight > Uncheck 'Show Finder search window'"
 osascript -e "tell application \"System Preferences\"
                 activate
                 reveal anchor \"shortcutsTab\" of pane \"com.apple.preference.keyboard\"
               end tell" &> /dev/null
-read
+waitforenter
 
 
 step "Finder" #################################################################
@@ -190,11 +191,10 @@ substep "Show file extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 substep "Organize Finder's left panel"
-action "Remove unwanted folders and tags in Finder's settings"
-action "Organize left panel folders as"
-action "Press enter when done"
+subsubaction "Remove unwanted folders and tags in Finder's settings"
+subsubaction "Organize left panel folders as"
 open -a "Finder"
-read
+waitforenter
 
 substep "Remove duplicates in the 'Open With' menu"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
@@ -309,7 +309,7 @@ sudo -S -v <<< "${sudo_password}" 2> /dev/null
 echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
 
 step "Change shell for user"
-action "Enter sudo password"
+subaction "Enter sudo password"
 chsh -s /usr/local/bin/bash
 
 step "Link Bash config files"
@@ -368,9 +368,8 @@ section "Dropbox"
 ###############################################################################
 
 action "Start Dropbox and make initial configuration"
-action "Press enter when done"
 open -a "Dropbox"
-read
+waitforenter
 
 
 ###############################################################################
@@ -378,8 +377,7 @@ section "1Password"
 ###############################################################################
 
 action "Download 1Password vault from Dropbox"
-action "Press enter when done"
-read
+waitforenter
 
 action "Start 1Password and make initial configuration"
 open -Wa "1Password 6"
@@ -399,9 +397,8 @@ step "Settings"
 defaults write com.runningwithcrayons.Alfred-Preferences-3 syncfolder -string "~/Dropbox/Privat"
 
 action "Enter license (stored in 1Password)"
-action "Press enter when done"
 open -a "Alfred 3"
-read
+waitforenter
 
 
 ###############################################################################
@@ -424,10 +421,9 @@ osascript -e "tell application \"System Events\"
               end tell" &> /dev/null
 
 step "Start Spectacle"
+subaction "Ensure starting at login"
 open -a Spectacle
-
-action "Press enter (nothing to do)"
-read
+waitforenter
 
 
 ###############################################################################
@@ -484,33 +480,33 @@ ln -s ${DOTFILES_DIR}/dots/R/Rprofile ${HOME}/.Rprofile
 section "Opera"
 ###############################################################################
 
-action "Setting: Block Ads"
-action "Setting: Browser > Click 'Make Opera my default browser'"
-action "Setting: Browser > Check 'Hold Command-Q (or press it twice) to quit Opera'"
-action "Setting: Privacy & security > Uncheck 'Offer to save passwords I enter on the web'"
-action "Pin and sign in to Facebook"
-action "Pin and sign in to Github"
-action "Sign in to Google"
-action "Install 1Password plugin"
-action "Install Pocket plugin"
-action "Press enter when done"
+action "Configure Opera"
+subaction "Setting: Block Ads"
+subaction "Setting: Browser > Click 'Make Opera my default browser'"
+subaction "Setting: Browser > Check 'Hold Command-Q (or press it twice) to quit Opera'"
+subaction "Setting: Privacy & security > Uncheck 'Offer to save passwords I enter on the web'"
+subaction "Pin and sign in to Facebook"
+subaction "Pin and sign in to Github"
+subaction "Sign in to Google"
+subaction "Install 1Password plugin"
+subaction "Install Pocket plugin"
 open -a "Opera" "https://www.facebook.com"
 open -a "Opera" "https://github.com"
 open -a "Opera" "https://accounts.google.com"
 open -a "Opera" "https://agilebits.com/onepassword/extensions"
 open -a "Opera" "https://addons.opera.com/en/extensions/details/pocket-formerly-read-it-later/"
-read
+waitforenter
 
 
 ###############################################################################
 section "Fantastical"
 ###############################################################################
 
-action "Add Google Calendar"
-action "Enter license (stored in 1Password)"
-action "Press enter when done"
+action "Configure Fantastical"
+subaction "Add Google Calendar"
+subaction "Enter license (stored in 1Password)"
 open -a "Fantastical 2"
-read
+waitforenter
 
 step "Additional Fantastical settings"
 defaults write com.flexibits.fantastical2.mac DayStarts -int 9
@@ -524,69 +520,66 @@ section "Remaining apps"
 ###############################################################################
 
 step "Arq Backup"
-action "Update"
-action "Enter license (stored in 1Password)"
-action "Connect to AWS (credentials in 1Password)"
-action "New Bucket marked with today's date"
-action "Encryption password in 1Password"
-action "Backup daily at 16:00"
-action "Preferences > Network > Use specific wireless networks"
-action "Press enter when done"
+subaction "Update"
+subaction "Enter license (stored in 1Password)"
+subaction "Connect to AWS (credentials in 1Password)"
+subaction "New Bucket marked with today's date"
+subaction "Encryption password in 1Password"
+subaction "Backup daily at 16:00"
+subaction "Preferences > Network > Use specific wireless networks"
 open -a "Arq"
-read
+waitforenter
 
 step "Carbon Copy Cloner"
-action "Enter license (stored in 1Password)"
-action "Press enter when done"
+subaction "Enter license (stored in 1Password)"
 open -a "Carbon Copy Cloner"
-read
+waitforenter
 
 step "Flux"
-action "Config"
-action "Press enter when done"
+subaction "Config"
 open -a Flux
-read
+waitforenter
 
 step "Github Desktop"
-action "Log in to Github"
+subaction "Log in to Github"
 open -Wa "Github Desktop"
 
 step "Google Chrome"
-action "Log in"
+subaction "Log in"
 open -Wa "Google Chrome"
 
 step "Fastmail"
-action "Setting: If a link doesn't match any rule, open it with default browser"
-action "Log in"
+subaction "Setting: If a link doesn't match any rule, open it with default browser"
+subaction "Log in"
 open -Wa "Fastmail"
 
 step "Facebook Messenger"
-action "Setting: If a link doesn't match any rule, open it with default browser"
-action "Log in"
+subaction "Setting: If a link doesn't match any rule, open it with default browser"
+subaction "Log in"
 open -Wa "Messenger"
 
 step "Gmail"
-action "Setting: If a link doesn't match any rule, open it with default browser"
-action "Log in"
+subaction "Setting: If a link doesn't match any rule, open it with default browser"
+subaction "Log in"
 open -Wa "Gmail"
 
 step "bMail"
-action "Setting: If a link doesn't match any rule, open it with default browser"
-action "Log in to private gmail first, then bMail"
+subaction "Setting: If a link doesn't match any rule, open it with default browser"
+subaction "Log in to private gmail first, then bMail"
 open -Wa "bMail"
 
 step "Mendeley Desktop"
-action "Login"
-action "Setting: Organize my files '~/Dropbox/Papers/Mendeley'"
-action "Setting: Watch folder '~/Dropbox/Papers/Read'"
+subaction "Login"
+subaction "Setting: Organize my files '~/Dropbox/Papers/Mendeley'"
+subaction "Setting: Watch folder '~/Dropbox/Papers/Read'"
 open -Wa "Mendeley Desktop"
 
 step "Marked 2"
-action "Enter license (stored in 1Password)"
+subaction "Enter license (stored in 1Password)"
 open -Wa "Marked 2"
 
 step "Pocket"
-action "Log in"
+subaction "Log in"
 open -Wa "Pocket"
 
 step "Pomodoro Done"
@@ -594,31 +587,31 @@ substep "Update settings"
 defaults write rinik.PomodoroDone autostart -bool true
 defaults write rinik.PomodoroDone hideDockIcon -bool true
 defaults write rinik.PomodoroDone tickingSoundEnabled -bool false
-action "Press enter"
+subaction "Close main window"
 open -a "Pomodoro Done"
-read
+waitforenter
 
 step "Skype"
-action "Log in"
+subaction "Log in"
 open -Wa "Skype"
 
 step "SourceTree"
-action "Login"
-action "Skip setup"
+subaction "Login"
+subaction "Skip setup"
 open -Wa "SourceTree"
 
 step "Spotify"
-action "Log in"
+subaction "Log in"
 open -Wa "Spotify"
 
 step "Todoist"
-action "Log in"
+subaction "Log in"
 open -Wa "Todoist"
 
 step "Steam"
-action "Update"
-action "Login"
-action "Setting: Disable open on start"
+subaction "Update"
+subaction "Login"
+subaction "Setting: Disable open on start"
 open -Wa "Steam"
 
 
@@ -648,30 +641,40 @@ section "Backup hard drives"
 ###############################################################################
 
 step "Partitions"
-action "Backup 500GB"
-action "Mirror 400GB"
-action "Install 10GB"
+subaction "Backup 500GB"
+subaction "Mirror 400GB"
+subaction "Install 10GB"
 
 step "Backup - Time Machine"
-action "Select Backup partition"
+subaction "Select Backup partition"
 
 step "Mirror - Carbon Copy Cloner"
-action "Source: Whole disk"
-action "Destination: Mirror partition"
-action "Run a daily basis"
-action "Run task when system next wakes"
-action "Advanced > Destination Volume > Unmount when done"
+subaction "Source: Whole disk"
+subaction "Destination: Mirror partition"
+subaction "Run a daily basis"
+subaction "Run task when system next wakes"
+subaction "Advanced > Destination Volume > Unmount when done"
 
 step "Make bootable image on Install partition"
-action "Only do if macOS has been updated"
-action "Download latest macOS from Mac App Store"
-action "Make bootable image: https://support.apple.com/en-us/HT201372"
-action "E.g., \"sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/XXXX --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction\""
+subaction "Only do if macOS has been updated"
+subaction "Download latest macOS from Mac App Store"
+subaction "Make bootable image: https://support.apple.com/en-us/HT201372"
+subaction "E.g., \"sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/XXXX --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction\""
 
 step "Prevent mounting"
-action "Prevent Mirror and Install from mounting at start-up"
-action "See: https://discussions.apple.com/docs/DOC-7942"
+subaction "Prevent Mirror and Install from mounting at start-up"
+subaction "See: https://discussions.apple.com/docs/DOC-7942"
 
-action "Press enter when done"
-read
+waitforenter
 
+
+###############################################################################
+section "Clean up"
+###############################################################################
+
+killall caffeinate
+
+echo ""
+echo "$(tput bold)● All done ✅$(tput sgr0)"
+action "Restart to finish"
+echo ""
