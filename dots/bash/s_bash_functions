@@ -15,14 +15,6 @@ function cdf() { # short for `cdfinder`
 	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
-# Use Git’s colored diff when available
-which git &>/dev/null
-if [ $? -eq 0 ]; then
-	function diff() {
-		git diff --no-index "$@"
-	}
-fi;
-
 # Open man page as PDF
 function manpdf() {
 	man -t "$1" | open -f -a /Applications/Preview.app/
