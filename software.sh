@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+
+caffeinate &
+
+if ![ -e "functions.sh" ]; then
+	echo "'./functions.sh' doesn't exists"
+	exit 1
+fi
+source "functions.sh"
+
+if ![ -e "secrets.sh" ]; then
+	warning "'./secrets.sh' doesn't exists"
+	exit 1
+fi
+source "secrets.sh"
+
+DOTFILES_DIR="${HOME}/.dotfiles"
+if ![ -d "$DOTFILES_DIR" ]; then
+	warning "'~/.dotfiles' doesn't exists"
+	exit 1
+fi
+
+
+###############################################################################
+section "Prerequisites"
+###############################################################################
+
+step "Sudo password"
+action "Please enter your sudo password"
+until sudo -n true 2> /dev/null; do # if password is wrong, keep asking
+	read -s -p 'Password: ' sudo_password; echo
+	sudo -S -v <<< "${sudo_password}" 2> /dev/null
+done
+
+step "Sign in to Mac App Store"
+action "Please MAS email and password"
+read -p 'MAS email: ' mas_email
+read -s -p 'MAS password: ' mas_password; echo
+
+step "Install command line tools"
+xcode-select --install
+
+step "Accept Xcode license"
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo -S xcodebuild -license
+
+
+###############################################################################
+section "Install command line tools from brew"
+###############################################################################
+
+step "Install Homebrew"
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+step "Update Homebrew"
+brew tap caskroom/cask
+brew update
+brew upgrade
+
+step "Install software"
+brew install ack
+brew install bash
+brew install homebrew/versions/bash-completion2
+brew install binutils
+brew install cmocka
+brew install coreutils
+brew install dockutil
+brew install doxygen
+brew install duti
+brew install findutils
+brew install gawk
+brew install git
+brew install gnu-sed
+brew install htop
+brew install mas
+brew install p7zip
+brew install pcre
+brew install rename
+brew install trash
+brew install tree
+brew install watch
+brew install wget
+brew install xz
+brew install --with-default-names homebrew/dupes/grep
+brew install homebrew/dupes/openssh
+brew install homebrew/science/r
+
+
+###############################################################################
+section "Install apps from Cask"
+###############################################################################
+
+brew cask install 1password
+brew cask install alfred
+brew cask install arq
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+brew cask install basictex
+brew cask install tex-live-utility
+brew cask install carbon-copy-cloner
+brew cask install dropbox
+brew cask install epichrome
+brew cask install fantastical
+brew cask install firefox
+brew cask install flux
+brew cask install github-desktop
+brew cask install google-chrome
+brew cask install keepingyouawake
+brew cask install marked
+brew cask install mendeley-desktop
+#brew cask install mountain-duck
+brew cask install opera
+brew cask install rstudio
+brew cask install skype
+brew cask install sourcetree
+brew cask install spectacle
+brew cask install spotify
+brew cask install steam
+brew cask install sublime-text
+#brew cask install texstudio
+brew cask install transmission
+brew cask install vlc
+
+# Quick look plugins
+# https://github.com/sindresorhus/quick-look-plugins
+brew cask install qlcolorcode
+brew cask install qlstephen
+brew cask install qlmarkdown
+brew cask install quicklook-json
+brew cask install quicklook-csv
+brew cask install betterzipql
+brew cask install qlimagesize
+brew cask install webpquicklook
+
+
+###############################################################################
+section "Install apps from Mac App Store"
+###############################################################################
+
+step "Signing into MAS"
+mas signin "${mas_email}" "${mas_password}"
+
+step "Install MAS apps"
+mas install 568494494  # Pocket
+mas install 585829637  # Todoist
+mas install 500154009  # Bitdefender Virus Scanner
+mas install 775737590  # iA Writer
+mas install 1071518638 # Pomodoro Done
+
+
+###############################################################################
+section "Make Epichrome apps"
+###############################################################################
+
+cp ${DOTFILES_DIR}/misc/{berkeley,fastmail,gmail,messenger}.icns ${HOME}/Downloads/
+
+step "Make bMail app"
+	substep "Save as: bMail"
+	substep "Where: Applications"
+	substep "Name: bMail"
+	substep "Url: https://mail.google.com/mail/u/1/"
+	substep "Icon: ~/Downloads/berkeley.icns"
+	open -Wa "Epichrome"
+
+step "Make Fastmail app"
+	substep "Save as: Fastmail"
+	substep "Where: Applications"
+	substep "Name: Fastmail"
+	substep "Url: https://www.fastmail.com/mail/Inbox/?u=${fastmail_id}"
+	substep "Icon: ~/Downloads/fastmail.icns"
+	open -Wa "Epichrome"
+
+step "Make Gmail app"
+	substep "Save as: Gmail"
+	substep "Where: Applications"
+	substep "Name: Gmail"
+	substep "Url: https://mail.google.com/mail/u/0/"
+	substep "Icon: ~/Downloads/gmail.icns"
+	open -Wa "Epichrome"
+
+step "Make Messenger app"
+	substep "Save as: Messenger"
+	substep "Where: Applications"
+	substep "Name: Messenger"
+	substep "Url: https://www.messenger.com"
+	substep "Icon: ~/Downloads/messenger.icns"
+	open -Wa "Epichrome"
+
+rm ${HOME}/Downloads/{berkeley,fastmail,gmail,messenger}.icns
+
+
+###############################################################################
+section "Clean up"
+###############################################################################
+
+brew cleanup
+
+killall caffeinate
+
+alldone

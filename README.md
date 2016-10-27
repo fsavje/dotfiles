@@ -4,10 +4,14 @@ This repo automates a fresh installation of a macOS exactly how Fredrik wants it
 
 
 ### Install everything
-```
-mkdir ~/.dotfiles && cd ~/.dotfiles
+```bash
+softwareupdate --install --all
+# Install Xcode
+mkdir -m 700 ~/.dotfiles && cd ~/.dotfiles
 git clone https://github.com/fsavje/dotfiles.git .
-make
+# Copy "secrets.sh" to ~/.dotfiles
+./software.sh 2> >(tee "~\software.log")
+./settings.sh 2> >(tee "~\settings.log")
 ```
 
 
@@ -19,3 +23,4 @@ The Unlicense -- basically public domain.
 
 * [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles)
 * [Vítor’s dotfiles](https://github.com/vitorgalvao/dotfiles)
+* [bash-it](https://github.com/Bash-it/bash-it)
