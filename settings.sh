@@ -405,6 +405,32 @@ read
 
 
 ###############################################################################
+section "Spectacle"
+###############################################################################
+
+SPECTACLE_DIR="${HOME}/Library/Application Support/Spectacle"
+
+step "Link Spectacle shortcuts"
+mkdir -p "${SPECTACLE_DIR}"
+rm -f "${SPECTACLE_DIR}/Shortcuts.json"
+ln -s "${DOTFILES_DIR}/dots/spectacle/Shortcuts.json" \
+      "${SPECTACLE_DIR}/Shortcuts.json"
+
+step "Make Spectacle start on login"
+osascript -e "tell application \"System Events\"
+                 if (login item \"Spectacle\" exists) is false then
+                    make login item at end with properties {name:\"Spectacle\", path:\"/Applications/Spectacle.app\", hidden:false}
+                 end if
+              end tell" &> /dev/null
+
+step "Start Spectacle"
+open -a Spectacle
+
+action "Press enter (nothing to do)"
+read
+
+
+###############################################################################
 section "Sublime Text"
 ###############################################################################
 
