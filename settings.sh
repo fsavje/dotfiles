@@ -454,7 +454,7 @@ open -Wa "Sublime Text"
 step "Link preference files"
 rm -f "${SUBLIME_LIB}/Packages/User/ccompile.sublime-build"
 ln -s "${DOTFILES_DIR}/dots/sublime/ccompile.sublime-build" \
-       "${SUBLIME_LIB}/Packages/User/ccompile.sublime-build"
+      "${SUBLIME_LIB}/Packages/User/ccompile.sublime-build"
 
 rm -f "${SUBLIME_LIB}/Packages/User/ctest.sublime-build"
 ln -s "${DOTFILES_DIR}/dots/sublime/ctest.sublime-build" \
@@ -522,6 +522,24 @@ defaults write com.flexibits.fantastical2.mac OpenMapsIn -string "google"
 ###############################################################################
 section "Remaining apps"
 ###############################################################################
+
+step "Arq Backup"
+action "Update"
+action "Enter license (stored in 1Password)"
+action "Connect to AWS (credentials in 1Password)"
+action "New Bucket marked with today's date"
+action "Encryption password in 1Password"
+action "Backup daily at 16:00"
+action "Preferences > Network > Use specific wireless networks"
+action "Press enter when done"
+open -a "Arq"
+read
+
+step "Carbon Copy Cloner"
+action "Enter license (stored in 1Password)"
+action "Press enter when done"
+open -a "Carbon Copy Cloner"
+read
 
 step "Flux"
 action "Config"
@@ -615,7 +633,45 @@ section "Extensions"
 #duti -x sh
 
 step "Sublime Text Extensions"
-for ext in {c,cpp,css,h,js,json,py,sh,txt}; do
+for ext in {c,cpp,css,h,js,json,md,py,sh,txt}; do
 	duti -s com.sublimetext.3 "${ext}" all
 done
+
+step "RStudio"
+for ext in {R}; do
+	duti -s org.rstudio.RStudio "${ext}" all
+done
+
+
+###############################################################################
+section "Backup hard drives"
+###############################################################################
+
+step "Partitions"
+action "Backup 500GB"
+action "Mirror 400GB"
+action "Install 10GB"
+
+step "Backup - Time Machine"
+action "Select Backup partition"
+
+step "Mirror - Carbon Copy Cloner"
+action "Source: Whole disk"
+action "Destination: Mirror partition"
+action "Run a daily basis"
+action "Run task when system next wakes"
+action "Advanced > Destination Volume > Unmount when done"
+
+step "Make bootable image on Install partition"
+action "Only do if macOS has been updated"
+action "Download latest macOS from Mac App Store"
+action "Make bootable image: https://support.apple.com/en-us/HT201372"
+action "E.g., \"sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/XXXX --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction\""
+
+step "Prevent mounting"
+action "Prevent Mirror and Install from mounting at start-up"
+action "See: https://discussions.apple.com/docs/DOC-7942"
+
+action "Press enter when done"
+read
 
