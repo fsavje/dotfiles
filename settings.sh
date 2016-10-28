@@ -407,10 +407,9 @@ section "Spectacle"
 
 SPECTACLE_DIR="${HOME}/Library/Application Support/Spectacle"
 
-step "Link Spectacle shortcuts"
+step "Copy Spectacle shortcuts"
 mkdir -p "${SPECTACLE_DIR}"
-rm -f "${SPECTACLE_DIR}/Shortcuts.json"
-ln -s "${DOTFILES_DIR}/dots/spectacle/Shortcuts.json" \
+cp -f "${DOTFILES_DIR}/dots/spectacle/Shortcuts.json" \
       "${SPECTACLE_DIR}/Shortcuts.json"
 
 step "Make Spectacle start on login"
