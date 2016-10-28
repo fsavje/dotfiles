@@ -359,9 +359,19 @@ sudo tlmgr update --all
 
 step "Install packages"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo tlmgr install bbm-macros
+sudo tlmgr install enumitem
 sudo tlmgr install latexmk
-# ...
+sudo tlmgr install ly1
+sudo tlmgr install mathdesign
+sudo tlmgr install sectsty
 
+step "Install non-free (as in speech) fonts"
+wget https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo texlua install-getnonfreefonts
+rm install-getnonfreefonts
+getnonfreefonts --all
 
 ###############################################################################
 section "Dropbox"
