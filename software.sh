@@ -146,6 +146,44 @@ mas install 1071518638 # Pomodoro Done
 
 
 ###############################################################################
+section "LaTeX Packages"
+###############################################################################
+
+step "Updating tlmgr and packages"
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo tlmgr update --self
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo tlmgr update --all
+
+step "Installing packages"
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo tlmgr install bbm-macros
+sudo tlmgr install enumitem
+sudo tlmgr install latexmk
+sudo tlmgr install ly1
+sudo tlmgr install mathdesign
+sudo tlmgr install sectsty
+
+step "Installing non-free (as in speech) fonts"
+wget https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts
+sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo texlua install-getnonfreefonts
+rm install-getnonfreefonts
+getnonfreefonts --all
+
+
+###############################################################################
+section "R Packages"
+###############################################################################
+
+step "Installing packages"
+R -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)'
+R -e 'install.packages("devtools", repos = "http://cloud.r-project.org")'
+R -e 'install.packages("testthat", repos = "http://cloud.r-project.org")'
+R -e 'install.packages("roxygen2", repos = "http://cloud.r-project.org")'
+
+
+###############################################################################
 section "Make Epichrome apps"
 ###############################################################################
 
