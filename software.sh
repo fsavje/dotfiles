@@ -60,6 +60,7 @@ brew install ack
 brew install bash
 brew install homebrew/versions/bash-completion2
 brew install binutils
+brew install cmake
 brew install cmocka
 brew install coreutils
 brew install dockutil
@@ -74,6 +75,7 @@ brew install mas
 brew install p7zip
 brew install pcre
 brew install rename
+brew install ruby
 brew install trash
 brew install tree
 brew install watch
@@ -143,6 +145,14 @@ mas install 585829637  # Todoist
 mas install 500154009  # Bitdefender Virus Scanner
 mas install 775737590  # iA Writer
 mas install 1071518638 # Pomodoro Done
+
+
+###############################################################################
+section "Ruby Gems"
+###############################################################################
+
+step "Installing gems"
+gem install bundler
 
 
 ###############################################################################
