@@ -191,8 +191,14 @@ substep "Show file extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 substep "Organize Finder's left panel"
-subsubaction "Remove unwanted folders and tags in Finder's settings"
-subsubaction "Organize left panel folders as"
+subsubaction "Remove unwanted folders and tags from 'Favorites' in Finder's settings"
+subsubaction "Organize Favorite folders as:"
+subsubaction "Applications"
+subsubaction "HOME"
+subsubaction "Dropbox"
+subsubaction "Dropbox/Projects"
+subsubaction "Downloads"
+subsubaction "Desktop"
 open -a "Finder"
 waitforenter
 
@@ -603,7 +609,7 @@ section "Extensions"
 #duti -x sh
 
 step "Sublime Text Extensions"
-for ext in {c,cpp,css,h,js,json,md,py,sh,txt}; do
+for ext in {c,cpp,css,h,js,json,md,py,sh,txt,xml}; do
 	duti -s com.sublimetext.3 "${ext}" all
 done
 
