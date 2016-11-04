@@ -127,6 +127,9 @@ defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
 
 step "Keyboard" ###############################################################
 
+substep "Keyboard Settings"
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
 substep "Keyboard Layouts"
 defaults write com.apple.HIToolbox AppleEnabledInputSources '( { InputSourceKind = "Keyboard Layout";
                                                                  "KeyboardLayout ID" = 0;

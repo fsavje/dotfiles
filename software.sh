@@ -64,6 +64,7 @@ brew install cmake
 brew install cmocka
 brew install coreutils
 brew install dockutil
+brew install dos2unix
 brew install doxygen
 brew install duti
 brew install findutils
