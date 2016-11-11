@@ -71,10 +71,13 @@ brew install findutils
 brew install gawk
 brew install git
 brew install gnu-sed
+brew install gnupg
+brew install gnupg2
 brew install htop
 brew install mas
 brew install p7zip
 brew install pcre
+brew install pinentry-mac
 brew install rename
 brew install ruby
 brew install trash
@@ -111,6 +114,7 @@ brew cask install mendeley-desktop
 #brew cask install mountain-duck
 brew cask install opera
 brew cask install rstudio
+#brew cask install skim
 brew cask install skype
 brew cask install sourcetree
 brew cask install spectacle
@@ -169,6 +173,7 @@ sudo tlmgr update --all
 step "Installing packages"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
 sudo tlmgr install bbm-macros
+sudo tlmgr install dvipng
 sudo tlmgr install enumitem
 sudo tlmgr install latexmk
 sudo tlmgr install ly1

@@ -15,10 +15,6 @@ git clone https://github.com/fsavje/dotfiles.git .
 ```
 
 
-### License
-The Unlicense -- basically public domain.
-
-
 ### Inspiration
 
 * [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles)
