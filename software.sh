@@ -172,13 +172,23 @@ sudo tlmgr update --all
 
 step "Installing packages"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
+sudo tlmgr install adjustbox
+sudo tlmgr install bbm
 sudo tlmgr install bbm-macros
+sudo tlmgr install collectbox
+sudo tlmgr install collection-fontsrecommended
 sudo tlmgr install dvipng
 sudo tlmgr install enumitem
 sudo tlmgr install latexmk
 sudo tlmgr install ly1
 sudo tlmgr install mathdesign
+sudo tlmgr install multirow
+sudo tlmgr install preprint
 sudo tlmgr install sectsty
+sudo tlmgr install tabu
+sudo tlmgr install textpos
+sudo tlmgr install tocloft
+sudo tlmgr install varwidth
 
 step "Installing non-free (as in speech) fonts"
 wget https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts
@@ -203,7 +213,7 @@ R -e 'install.packages("roxygen2", repos = "http://cloud.r-project.org")'
 section "Make Epichrome apps"
 ###############################################################################
 
-cp ${DOTFILES_DIR}/misc/{berkeley,fastmail,gmail,messenger}.icns ${HOME}/Downloads/
+cp ${DOTFILES_DIR}/misc/{berkeley,fastmail,github,gmail,messenger}.icns ${HOME}/Downloads/
 
 step "Make bMail app"
 	subaction "Save as: bMail"
@@ -219,6 +229,14 @@ step "Make Fastmail app"
 	subaction "Name: Fastmail"
 	subaction "Url: https://www.fastmail.com/mail/Inbox/?u=3ccb4100"
 	subaction "Icon: ~/Downloads/fastmail.icns"
+	open -Wa "Epichrome"
+
+step "Make Github app"
+	subaction "Save as: Github"
+	subaction "Where: Applications"
+	subaction "Name: Github"
+	subaction "Url: https://github.com/fsavje"
+	subaction "Icon: ~/Downloads/github.icns"
 	open -Wa "Epichrome"
 
 step "Make Gmail app"
@@ -237,7 +255,7 @@ step "Make Messenger app"
 	subaction "Icon: ~/Downloads/messenger.icns"
 	open -Wa "Epichrome"
 
-rm ${HOME}/Downloads/{berkeley,fastmail,gmail,messenger}.icns
+rm ${HOME}/Downloads/{berkeley,fastmail,github,gmail,messenger}.icns
 
 
 ###############################################################################
