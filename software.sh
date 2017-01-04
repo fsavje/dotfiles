@@ -34,13 +34,6 @@ subaction "Please MAS email and password"
 read -p 'MAS email: ' mas_email
 read -s -p 'MAS password: ' mas_password; echo
 
-step "Installing command line tools"
-xcode-select --install
-
-step "Accept Xcode license"
-sudo -S -v <<< "${sudo_password}" 2> /dev/null
-sudo -S xcodebuild -license
-
 
 ###############################################################################
 section "Installing command line tools from brew"
@@ -99,6 +92,11 @@ brew cask install alfred
 brew cask install arq
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
 brew cask install basictex
+	# http://tex.stackexchange.com/a/319572
+	subaction "Install Basic Tex"
+	open "/usr/local/Caskroom/basictex/"
+	waitforenter
+
 brew cask install tex-live-utility
 brew cask install carbon-copy-cloner
 brew cask install dropbox
@@ -109,9 +107,11 @@ brew cask install flux
 brew cask install github-desktop
 brew cask install google-chrome
 brew cask install keepingyouawake
+brew cask install macvim
 brew cask install marked
 brew cask install mendeley-desktop
 #brew cask install mountain-duck
+brew cask install numi
 brew cask install opera
 brew cask install rstudio
 #brew cask install skim
@@ -172,23 +172,7 @@ sudo tlmgr update --all
 
 step "Installing packages"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
-sudo tlmgr install adjustbox
-sudo tlmgr install bbm
-sudo tlmgr install bbm-macros
-sudo tlmgr install collectbox
-sudo tlmgr install collection-fontsrecommended
-sudo tlmgr install dvipng
-sudo tlmgr install enumitem
-sudo tlmgr install latexmk
-sudo tlmgr install ly1
-sudo tlmgr install mathdesign
-sudo tlmgr install multirow
-sudo tlmgr install preprint
-sudo tlmgr install sectsty
-sudo tlmgr install tabu
-sudo tlmgr install textpos
-sudo tlmgr install tocloft
-sudo tlmgr install varwidth
+sudo tlmgr install adjustbox bbm bbm-macros collectbox collection-fontsrecommended dvipng enumitem latexmk ly1 mathdesign multirow preprint sectsty tabu textpos tocloft varwidth
 
 step "Installing non-free (as in speech) fonts"
 wget https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts

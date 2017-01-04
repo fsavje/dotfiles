@@ -40,6 +40,15 @@ done
 
 
 ###############################################################################
+section "Dropbox"
+###############################################################################
+
+action "Start Dropbox and make initial configuration"
+open -a "Dropbox"
+waitforenter
+
+
+###############################################################################
 section "macOS settings"
 ###############################################################################
 
@@ -92,6 +101,8 @@ defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
 	"/System/Library/CoreServices/Menu Extras/TextInput.menu"
 
+killall SystemUIServer
+
 substep "User settings"
 subsubaction "Turn off Guest User account"
 subsubaction "Drag photo to user image"
@@ -130,17 +141,17 @@ step "Keyboard" ###############################################################
 substep "Keyboard Settings"
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-substep "Keyboard Layouts"
-defaults write com.apple.HIToolbox AppleEnabledInputSources '( { InputSourceKind = "Keyboard Layout";
-                                                                 "KeyboardLayout ID" = 0;
-                                                                 "KeyboardLayout Name" = "U.S."; },
-                                                               { InputSourceKind = "Keyboard Layout";
-                                                                 "KeyboardLayout ID" = 224;
-                                                                 "KeyboardLayout Name" = Swedish;
-                                                               } )'
-
 # Find values for System Preferences by opening the desired pane and running the following AppleScript:
 #osascript -e "tell application \"System Preferences\" to return anchors of current pane"
+
+substep "Input Sources"
+subsubaction "Add Swedish"
+osascript -e "tell application \"System Preferences\"
+                activate
+                reveal anchor \"InputSources\" of pane \"com.apple.preference.keyboard\"
+              end tell" &> /dev/null
+waitforenter
+
 
 substep "Keyboard Shortcuts"
 subsubaction "Input Sources > alt+cmd+space @ 'Select next source in Input menu'"
@@ -214,8 +225,8 @@ killall Finder
 
 step "Dock" ###################################################################
 
-substep "Set Dock to left orientation"
-defaults write com.apple.dock orientation -string left
+substep "Set Dock to right orientation"
+defaults write com.apple.dock orientation -string right
 
 substep "Enable Dock autohide"
 defaults write com.apple.dock autohide -bool true
@@ -239,6 +250,7 @@ dockutil --no-restart --add "/Applications/bMail.app"
 dockutil --no-restart --add "/Applications/Messenger.app"
 dockutil --no-restart --add "/Applications/Spotify.app"
 dockutil --no-restart --add "/Applications/1Password 6.app"
+dockutil --no-restart --add "/Applications/Numi.app"
 dockutil --no-restart --add "/Applications/Utilities/Terminal.app"
 dockutil --no-restart --add "/Applications/Sublime Text.app"
 dockutil --no-restart --add "/Applications/iA Writer.app"
@@ -358,15 +370,6 @@ ln -s ${DOTFILES_DIR}/dots/editorconfig/editorconfig ${HOME}/.editorconfig
 
 
 ###############################################################################
-section "Dropbox"
-###############################################################################
-
-action "Start Dropbox and make initial configuration"
-open -a "Dropbox"
-waitforenter
-
-
-###############################################################################
 section "1Password"
 ###############################################################################
 
@@ -472,8 +475,8 @@ subaction "Setting: Block Ads"
 subaction "Setting: Browser > Click 'Make Opera my default browser'"
 subaction "Setting: Browser > Check 'Hold Command-Q (or press it twice) to quit Opera'"
 subaction "Setting: Privacy & security > Uncheck 'Offer to save passwords I enter on the web'"
-subaction "Pin and sign in to Facebook"
 subaction "Pin and sign in to Github"
+subaction "Sign in to Facebook"
 subaction "Sign in to Google"
 subaction "Install 1Password plugin"
 subaction "Install Pocket plugin"
@@ -507,8 +510,8 @@ section "Remaining apps"
 ###############################################################################
 
 step "Arq Backup"
-subaction "Update"
 subaction "Enter license (stored in 1Password)"
+subaction "Update"
 subaction "Connect to AWS (credentials in 1Password)"
 subaction "New Bucket marked with today's date"
 subaction "Encryption password in 1Password"
@@ -621,6 +624,63 @@ step "RStudio"
 for ext in {R}; do
 	duti -s org.rstudio.RStudio "${ext}" all
 done
+
+
+###############################################################################
+section "GPG and SSH keys"
+###############################################################################
+
+step "Export from 1Password"
+subaction "Export '01735455.public.gpg-key' to ~"
+subaction "Export '01735455.subkeys.gpg-key' to ~"
+subaction "Export 'fredriksavje.pub' to ~"
+subaction "Export 'fredriksavje.ssh' to ~"
+waitforenter
+
+step "Importing keys"
+
+substep "Importing '~/01735455.public.gpg-key'"
+if [ -e "~/01735455.public.gpg-key" ]; then
+	gpg --import ~/01735455.public.gpg-key
+	rm ~/01735455.public.gpg-key
+else
+	warning "'~/01735455.public.gpg-key' doesn't exists"
+fi
+
+substep "Importing '~/01735455.subkeys.gpg-key'"
+if [ -e "~/01735455.subkeys.gpg-key" ]; then
+	gpg --import ~/01735455.subkeys.gpg-key
+	rm ~/01735455.subkeys.gpg-key
+else
+	warning "'~/01735455.subkeys.gpg-key' doesn't exists"
+fi
+
+substep "Creating '~/.ssh'"
+mkdir -p "~/.ssh"
+
+substep "Importing '~/fredriksavje.pub'"
+if [ -e "~/fredriksavje.pub" ]; then
+	cp ~/fredriksavje.pub ~/.ssh/id_rsa.pub
+	rm ~/fredriksavje.pub
+else
+	warning "'~/fredriksavje.pub' doesn't exists"
+fi
+
+substep "Importing '~/fredriksavje.ssh'"
+if [ -e "~/fredriksavje.ssh" ]; then
+	cp ~/fredriksavje.ssh ~/.ssh/id_rsa
+	chmod 600 ~/.ssh/id_rsa
+	rm ~/fredriksavje.ssh
+else
+	warning "'~/fredriksavje.ssh' doesn't exists"
+fi
+
+step "Check so keys are deleted:"
+subaction "~/01735455.public.gpg-key"
+subaction "~/01735455.subkeys.gpg-key"
+subaction "~/fredriksavje.pub"
+subaction "~/fredriksavje.ssh"
+waitforenter
 
 
 ###############################################################################
