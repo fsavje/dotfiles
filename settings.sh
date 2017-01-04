@@ -642,7 +642,7 @@ done
 section "GPG and SSH keys"
 ###############################################################################
 
-step "Export from 1Password"
+step "Export keys from 1Password"
 subaction "Export '01735455.public.gpg-key' to ~"
 subaction "Export '01735455.subkeys.gpg-key' to ~"
 subaction "Export 'fredriksavje.pub' to ~"
@@ -719,6 +719,7 @@ subaction "Only do if macOS has been updated"
 subaction "Download latest macOS from Mac App Store"
 subaction "Make bootable image: https://support.apple.com/en-us/HT201372"
 subaction "E.g., \"sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/XXXX --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction\""
+subaction "Copy 1Password opvault to disk"
 
 step "Prevent mounting"
 subaction "Prevent Mirror and Install from mounting at start-up"

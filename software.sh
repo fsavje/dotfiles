@@ -188,16 +188,14 @@ section "R Packages"
 
 step "Installing packages"
 R -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)'
-R -e 'install.packages("devtools", repos = "http://cloud.r-project.org")'
-R -e 'install.packages("testthat", repos = "http://cloud.r-project.org")'
-R -e 'install.packages("roxygen2", repos = "http://cloud.r-project.org")'
+R -e 'install.packages(c("devtools", "testthat", "roxygen2"), repos = "http://cloud.r-project.org")'
 
 
 ###############################################################################
 section "Make Epichrome apps"
 ###############################################################################
 
-cp ${DOTFILES_DIR}/misc/{berkeley,fastmail,github,gmail,messenger}.icns ${HOME}/Downloads/
+cp ${DOTFILES_DIR}/misc/{berkeley,fastmail,gmail,messenger}.icns ${HOME}/Downloads/
 
 step "Make bMail app"
 	subaction "Save as: bMail"
@@ -213,14 +211,6 @@ step "Make Fastmail app"
 	subaction "Name: Fastmail"
 	subaction "Url: https://www.fastmail.com/mail/Inbox/?u=3ccb4100"
 	subaction "Icon: ~/Downloads/fastmail.icns"
-	open -Wa "Epichrome"
-
-step "Make Github app"
-	subaction "Save as: Github"
-	subaction "Where: Applications"
-	subaction "Name: Github"
-	subaction "Url: https://github.com/fsavje"
-	subaction "Icon: ~/Downloads/github.icns"
 	open -Wa "Epichrome"
 
 step "Make Gmail app"
@@ -239,7 +229,7 @@ step "Make Messenger app"
 	subaction "Icon: ~/Downloads/messenger.icns"
 	open -Wa "Epichrome"
 
-rm ${HOME}/Downloads/{berkeley,fastmail,github,gmail,messenger}.icns
+rm ${HOME}/Downloads/{berkeley,fastmail,gmail,messenger}.icns
 
 
 ###############################################################################
