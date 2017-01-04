@@ -322,6 +322,18 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 
 
 ###############################################################################
+section "GPG"
+###############################################################################
+
+step "Link GPG config files"
+mkdir -p ${HOME}/.gnupg
+backup_file ${HOME}/.gnupg/gpg-agent.conf
+backup_file ${HOME}/.gnupg/gpg.conf
+ln -s ${DOTFILES_DIR}/dots/gpg/l_gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
+ln -s ${DOTFILES_DIR}/dots/gpg/l_gpg.conf ${HOME}/.gnupg/gpg.conf
+
+
+###############################################################################
 section "Bash"
 ###############################################################################
 
