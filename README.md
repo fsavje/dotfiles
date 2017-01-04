@@ -7,10 +7,11 @@ This repo automates a fresh installation of a macOS exactly how Fredrik wants it
 ```bash
 softwareupdate --install --all
 xcode-select --install
+# Possibly full xcode
 sudo xcodebuild -license
 mkdir -m 700 ~/.dotfiles && cd ~/.dotfiles
 git clone https://github.com/fsavje/dotfiles.git .
-# Copy "secrets.sh" to ~/.dotfiles
+# Copy Dropbox/Privat/dot_secrets.sh to ~/.dotfiles/dot_secrets.sh
 ./software.sh 2> >(tee "~\software.log")
 ./settings.sh 2> >(tee "~\settings.log")
 ```

@@ -11,11 +11,11 @@ if ![ -e "functions.sh" ]; then
 fi
 source "functions.sh"
 
-if ![ -e "secrets.sh" ]; then
-	warning "'./secrets.sh' doesn't exists"
+if ![ -e "dot_secrets.sh" ]; then
+	warning "'./dot_secrets.sh' doesn't exists"
 	exit 1
 fi
-source "secrets.sh"
+source "dot_secrets.sh"
 
 DOTFILES_DIR="${HOME}/.dotfiles"
 if ![ -d "$DOTFILES_DIR" ]; then
