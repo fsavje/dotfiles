@@ -116,6 +116,7 @@ brew cask install opera
 brew cask install rstudio
 #brew cask install skim
 brew cask install skype
+brew cask install slack
 brew cask install sourcetree
 brew cask install spectacle
 brew cask install spotify

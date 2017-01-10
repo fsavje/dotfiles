@@ -144,14 +144,13 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 # Find values for System Preferences by opening the desired pane and running the following AppleScript:
 #osascript -e "tell application \"System Preferences\" to return anchors of current pane"
 
-substep "Input Sources"
-subsubaction "Add Swedish"
+substep "Remap Caps Lock to Ctrl"
+subsubaction "Modifier Keys... > Caps Lock Key"
 osascript -e "tell application \"System Preferences\"
                 activate
-                reveal anchor \"InputSources\" of pane \"com.apple.preference.keyboard\"
+                reveal anchor \"keyboardTab\" of pane \"com.apple.preference.keyboard\"
               end tell" &> /dev/null
 waitforenter
-
 
 substep "Keyboard Shortcuts"
 subsubaction "Input Sources > alt+cmd+space @ 'Select next source in Input menu'"
@@ -163,6 +162,13 @@ osascript -e "tell application \"System Preferences\"
               end tell" &> /dev/null
 waitforenter
 
+substep "Input Sources"
+subsubaction "Add Swedish"
+osascript -e "tell application \"System Preferences\"
+                activate
+                reveal anchor \"InputSources\" of pane \"com.apple.preference.keyboard\"
+              end tell" &> /dev/null
+waitforenter
 
 step "Finder" #################################################################
 
