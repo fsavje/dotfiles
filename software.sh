@@ -71,6 +71,8 @@ brew install mas
 brew install p7zip
 brew install pcre
 brew install pinentry-mac
+brew install python
+brew install python3
 brew install rename
 brew install ruby
 brew install trash
@@ -99,6 +101,7 @@ brew cask install basictex
 
 brew cask install tex-live-utility
 brew cask install carbon-copy-cloner
+brew cask install cyberduck
 brew cask install dropbox
 brew cask install epichrome
 brew cask install fantastical
@@ -146,10 +149,11 @@ step "Signing into MAS"
 mas signin "${mas_email}" "${mas_password}"
 
 step "Installing MAS apps"
+mas install 500154009  # Bitdefender Virus Scanner
 mas install 568494494  # Pocket
 mas install 585829637  # Todoist
-mas install 500154009  # Bitdefender Virus Scanner
 mas install 775737590  # iA Writer
+mas install 924726344  # Deliveries
 mas install 1071518638 # Pomodoro Done
 
 
@@ -173,14 +177,43 @@ sudo tlmgr update --all
 
 step "Installing packages"
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
-sudo tlmgr install adjustbox bbm bbm-macros collectbox collection-fontsrecommended dvipng enumitem latexmk ly1 mathdesign multirow preprint sectsty tabu textpos tocloft varwidth
+sudo tlmgr install \
+	adjustbox \
+	bbm \
+	bbm-macros \
+	cabin \
+	collectbox \
+	collection-fontsextra \
+	collection-fontsrecommended \
+	contour \
+	dvipng \
+	enumitem \
+	eulerpx \
+	eulervm \
+	fontaxes \
+	inconsolata \
+	latexmk \
+	ly1 \
+	mathalfa \
+	mathdesign \
+	multirow \
+	mweights \
+	newpx \
+	newtx \
+	preprint \
+	preview \
+	sectsty \
+	tabu \
+	textpos \
+	tocloft \
+	varwidth
 
 step "Installing non-free (as in speech) fonts"
 wget https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts
 sudo -S -v <<< "${sudo_password}" 2> /dev/null
 sudo texlua install-getnonfreefonts
 rm install-getnonfreefonts
-getnonfreefonts --all
+sudo getnonfreefonts-sys --all
 
 
 ###############################################################################

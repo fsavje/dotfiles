@@ -16,3 +16,16 @@ trim_trailing_whitespace = false
 [*.R]
 indent_style = space
 indent_size = 2
+
+[*.{py,pxd,pyx}]
+indent_style = space
+indent_size = 4
+
+[*.yml]
+indent_style = space
+indent_size = 2
+
+[*.{cmd,bat,ps1}]
+indent_size = 2
+end_of_line = crlf
+insert_final_newline = false

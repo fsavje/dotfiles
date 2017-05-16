@@ -634,7 +634,7 @@ section "Extensions"
 #duti -x sh
 
 step "Sublime Text Extensions"
-for ext in {c,cpp,css,h,js,json,md,py,sh,txt,xml}; do
+for ext in {c,cpp,css,h,js,json,md,py,pyx,pxd,sh,txt,xml}; do
 	duti -s com.sublimetext.3 "${ext}" all
 done
 
