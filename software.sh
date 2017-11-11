@@ -74,7 +74,7 @@ brew install pinentry-mac
 brew install python
 brew install python3
 brew install rename
-brew install ruby
+#brew install ruby
 brew install trash
 brew install tree
 brew install watch
@@ -158,11 +158,11 @@ mas install 1071518638 # Pomodoro Done
 
 
 ###############################################################################
-section "Ruby Gems"
+# section "Ruby Gems"
 ###############################################################################
 
-step "Installing gems"
-gem install bundler
+# step "Installing gems"
+# gem install bundler
 
 
 ###############################################################################
