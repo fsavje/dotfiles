@@ -1,0 +1,65 @@
+"dein package manager-----------------------------
+
+set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.local/share/dein')
+	call dein#begin('~/.local/share/dein')
+
+	call dein#add('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
+
+	" Plugins
+	call dein#add('editorconfig/editorconfig-vim')
+	call dein#add('airblade/vim-gitgutter')
+	call dein#add('tomasr/molokai')
+	call dein#add('lervag/vimtex')
+	call dein#add('w0rp/ale')
+
+	call dein#add('junegunn/goyo.vim')
+	call dein#add('junegunn/limelight.vim')
+	call dein#add('tpope/vim-surround')
+	call dein#add('itchyny/lightline.vim')
+	call dein#add('junegunn/seoul256.vim')
+
+	"call dein#add('lifepillar/vim-solarized8')
+	"call dein#add('romainl/flattened')
+	"call dein#add('dikiaap/minimalist')
+	"call dein#add('altercation/vim-colors-solarized')
+
+	call dein#end()
+	call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+colorscheme molokai
+
+if dein#check_install()
+	call dein#install()
+endif
+
+"End dein package manager-------------------------
+
+let g:vimtex_view_method = 'skim'
+
+let g:vimtex_compiler_latexmk = {
+	\ 'backend' : 'jobs',
+	\ 'continuous' : 0,
+	\}
+
+let g:vimtex_quickfix_autojump = 1
+
+let g:vimtex_view_skim_hook_callback = 'ViewCallbackHook'
+function! ViewCallbackHook()
+	call b:vimtex.viewer.view('')
+endfunction
+
+inoremap jk <esc>
+
+nnoremap <c-d> :update<cr>:VimtexCompile<cr>
+"inoremap <c-d> <esc>:update<cr>:VimtexCompile<cr>i
+
+inoremap <esc> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>

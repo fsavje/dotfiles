@@ -6,21 +6,21 @@ echo "> Loading helper files"
 caffeinate &
 
 if ![ -e "functions.sh" ]; then
-	echo "'./functions.sh' doesn't exists"
-	exit 1
+  echo "'./functions.sh' doesn't exists"
+  exit 1
 fi
 source "functions.sh"
 
 if ![ -e "dot_secrets.sh" ]; then
-	warning "'./dot_secrets.sh' doesn't exists"
-	exit 1
+  warning "'./dot_secrets.sh' doesn't exists"
+  exit 1
 fi
 source "dot_secrets.sh"
 
 DOTFILES_DIR="${HOME}/.dotfiles"
 if ![ -d "$DOTFILES_DIR" ]; then
-	warning "'~/.dotfiles' doesn't exists"
-	exit 1
+  warning "'~/.dotfiles' doesn't exists"
+  exit 1
 fi
 
 
@@ -34,8 +34,8 @@ osascript -e 'tell application "System Preferences" to quit'
 step "Sudo password"
 subaction "Please enter your sudo password"
 until sudo -n true 2> /dev/null; do # if password is wrong, keep asking
-	read -s -p 'Password: ' sudo_password; echo
-	sudo -S -v <<< "${sudo_password}" 2> /dev/null
+  read -s -p 'Password: ' sudo_password; echo
+  sudo -S -v <<< "${sudo_password}" 2> /dev/null
 done
 
 
@@ -95,11 +95,11 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 substep "Remove Display Icon from Menu Bar"
 defaults write com.apple.airplay showInMenuBarIfPresent -bool false
 defaults write com.apple.systemuiserver menuExtras -array \
-	"/System/Library/CoreServices/Menu Extras/Clock.menu" \
-	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
-	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-	"/System/Library/CoreServices/Menu Extras/TextInput.menu"
+  "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+  "/System/Library/CoreServices/Menu Extras/TextInput.menu"
 
 killall SystemUIServer
 
@@ -152,6 +152,14 @@ osascript -e "tell application \"System Preferences\"
               end tell" &> /dev/null
 waitforenter
 
+substep "Input Sources"
+subsubaction "Add Swedish"
+osascript -e "tell application \"System Preferences\"
+                activate
+                reveal anchor \"InputSources\" of pane \"com.apple.preference.keyboard\"
+              end tell" &> /dev/null
+waitforenter
+
 substep "Keyboard Shortcuts"
 subsubaction "Input Sources > alt+cmd+space @ 'Select next source in Input menu'"
 subsubaction "Spotlight > Uncheck 'Show Spotlight search'"
@@ -159,14 +167,6 @@ subsubaction "Spotlight > Uncheck 'Show Finder search window'"
 osascript -e "tell application \"System Preferences\"
                 activate
                 reveal anchor \"shortcutsTab\" of pane \"com.apple.preference.keyboard\"
-              end tell" &> /dev/null
-waitforenter
-
-substep "Input Sources"
-subsubaction "Add Swedish"
-osascript -e "tell application \"System Preferences\"
-                activate
-                reveal anchor \"InputSources\" of pane \"com.apple.preference.keyboard\"
               end tell" &> /dev/null
 waitforenter
 
@@ -183,6 +183,7 @@ chflags hidden "${HOME}/Documents"
 chflags hidden "${HOME}/Movies"
 chflags hidden "${HOME}/Music"
 chflags hidden "${HOME}/Pictures"
+chflags hidden "${HOME}/Public"
 
 substep "Disable the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
@@ -252,19 +253,21 @@ dockutil --no-restart --add "/Applications/Todoist.app"
 dockutil --no-restart --add "/Applications/Fantastical 2.app"
 dockutil --no-restart --add "/Applications/Fastmail.app"
 dockutil --no-restart --add "/Applications/Gmail.app"
-dockutil --no-restart --add "/Applications/bMail.app"
+dockutil --no-restart --add "/Applications/MailMate.app"
+dockutil --no-restart --add "/Applications/Slack.app"
 dockutil --no-restart --add "/Applications/Messenger.app"
 dockutil --no-restart --add "/Applications/Spotify.app"
 dockutil --no-restart --add "/Applications/1Password 6.app"
 dockutil --no-restart --add "/Applications/Numi.app"
 dockutil --no-restart --add "/Applications/Utilities/Terminal.app"
+dockutil --no-restart --add "/Applications/VimR.app"
 dockutil --no-restart --add "/Applications/Sublime Text.app"
 dockutil --no-restart --add "/Applications/iA Writer.app"
 dockutil --no-restart --add "/Applications/GitHub Desktop.app"
 dockutil --no-restart --add "/Applications/RStudio.app"
-dockutil --no-restart --add "/Applications/Mendeley Desktop.app"
 dockutil --no-restart --add "/Applications/Notes.app"
 dockutil --no-restart --add "/Applications/Pocket.app"
+dockutil --no-restart --add "/Applications/Deliveries.app"
 
 substep "Restart Dock"
 killall Dock
@@ -273,51 +276,7 @@ killall Dock
 step "Terminal" ###############################################################
 
 substep "Install Terminal.app theme and set to default"
-osascript <<EOD
-
-tell application "Terminal"
-
-	local allOpenedWindows
-	local initialOpenedWindows
-	local windowID
-	set themeName to "Solarized Dark Mod"
-
-	(* Store the IDs of all the open terminal windows. *)
-	set initialOpenedWindows to id of every window
-
-	(* Open the custom theme so that it gets added to the list
-	   of available terminal themes (note: this will open two
-	   additional terminal windows). *)
-	do shell script "open '${DOTFILES_DIR}/dots/terminal/" & themeName & ".terminal'"
-
-	(* Wait a little bit to ensure that the custom theme is added. *)
-	delay 1
-
-	(* Set the custom theme as the default terminal theme. *)
-	set default settings to settings set themeName
-
-	(* Get the IDs of all the currently opened terminal windows. *)
-	set allOpenedWindows to id of every window
-
-	repeat with windowID in allOpenedWindows
-
-		(* Close the additional windows that were opened in order
-		   to add the custom theme to the list of terminal themes. *)
-		if initialOpenedWindows does not contain windowID then
-			close (every window whose id is windowID)
-
-		(* Change the theme for the initial opened terminal windows
-		   to remove the need to close them in order for the custom
-		   theme to be applied. *)
-		else
-			set current settings of tabs of (every window whose id is windowID) to settings set themeName
-		end if
-
-	end repeat
-
-end tell
-
-EOD
+osascript terminal-fix.scpt
 
 substep "Disable line marks"
 defaults write com.apple.Terminal ShowLineMarks -int 0
@@ -424,8 +383,8 @@ SPECTACLE_DIR="${HOME}/Library/Application Support/Spectacle"
 
 step "Copy Spectacle shortcuts"
 mkdir -p "${SPECTACLE_DIR}"
-cp -f "${DOTFILES_DIR}/dots/spectacle/Shortcuts.json" \
-      "${SPECTACLE_DIR}/Shortcuts.json"
+cp -f "${DOTFILES_DIR}/dots/spectacle/Shortcuts.json" "${SPECTACLE_DIR}/Shortcuts.json"
+
 
 step "Make Spectacle start on login"
 osascript -e "tell application \"System Events\"
@@ -441,6 +400,40 @@ waitforenter
 
 
 ###############################################################################
+section "Macvim"
+###############################################################################
+
+ln -s "${DOTFILES_DIR}/dots/vim/vimrc" "${HOME}/.vimrc"
+
+# Package manager
+mkdir -p "${HOME}/.local/share/dein"
+wget https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+sh ./installer.sh "${HOME}/.local/share/dein"
+rm installer.sh
+
+
+
+###############################################################################
+#section "Neovim"
+###############################################################################
+
+# Install neovim plugins
+#pip2 install neovim
+#pip3 install neovim
+#sudo gem install neovim
+
+# Neovim config
+#mkdir -p "${HOME}/.config"
+#ln -s "${DOTFILES_DIR}/dots/nvim" "${HOME}/.config/nvim"
+
+# Package manager
+#mkdir -p "${HOME}/.local/share/dein"
+#wget https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+#sh ./installer.sh "${HOME}/.local/share/dein"
+#rm installer.sh
+
+
+###############################################################################
 section "Sublime Text"
 ###############################################################################
 
@@ -451,7 +444,7 @@ SUBLIME_LIB="${HOME}/Library/Application Support/Sublime Text 3"
 
 step "Download Package Control"
 wget -O "${SUBLIME_LIB}/Installed Packages/Package Control.sublime-package" \
-	"https://packagecontrol.io/Package Control.sublime-package"
+  "https://packagecontrol.io/Package Control.sublime-package"
 
 step "Package Control settings"
 rm -f "${SUBLIME_LIB}/Packages/User/Package Control.sublime-settings"
@@ -543,11 +536,6 @@ subaction "Enter license (stored in 1Password)"
 open -a "Carbon Copy Cloner"
 waitforenter
 
-step "Flux"
-subaction "Config"
-open -a Flux
-waitforenter
-
 step "Github Desktop"
 subaction "Log in to Github"
 open -Wa "Github Desktop"
@@ -570,11 +558,6 @@ step "Gmail"
 subaction "Setting: If a link doesn't match any rule, open it with default browser"
 subaction "Log in"
 open -Wa "Gmail"
-
-step "bMail"
-subaction "Setting: If a link doesn't match any rule, open it with default browser"
-subaction "Log in to private gmail first, then bMail"
-open -Wa "bMail"
 
 step "Mendeley Desktop"
 subaction "Login"
@@ -635,17 +618,17 @@ section "Extensions"
 
 step "Sublime Text Extensions"
 for ext in {c,cpp,css,h,js,json,md,py,pyx,pxd,rs,sh,toml,txt,xml}; do
-	duti -s com.sublimetext.3 "${ext}" all
+  duti -s com.sublimetext.3 "${ext}" all
 done
 
 step "RStudio"
 for ext in {R}; do
-	duti -s org.rstudio.RStudio "${ext}" all
+  duti -s org.rstudio.RStudio "${ext}" all
 done
 
 step "VLC"
 for ext in {mp4}; do
-	duti -s org.videolan.vlc "${ext}" all
+  duti -s org.videolan.vlc "${ext}" all
 done
 
 
@@ -664,18 +647,18 @@ step "Importing keys"
 
 substep "Importing '~/01735455.public.gpg-key'"
 if [ -e "~/01735455.public.gpg-key" ]; then
-	gpg --import ~/01735455.public.gpg-key
-	rm ~/01735455.public.gpg-key
+  gpg --import ~/01735455.public.gpg-key
+  rm ~/01735455.public.gpg-key
 else
-	warning "'~/01735455.public.gpg-key' doesn't exists"
+  warning "'~/01735455.public.gpg-key' doesn't exists"
 fi
 
 substep "Importing '~/01735455.subkeys.gpg-key'"
 if [ -e "~/01735455.subkeys.gpg-key" ]; then
-	gpg --import ~/01735455.subkeys.gpg-key
-	rm ~/01735455.subkeys.gpg-key
+  gpg --import ~/01735455.subkeys.gpg-key
+  rm ~/01735455.subkeys.gpg-key
 else
-	warning "'~/01735455.subkeys.gpg-key' doesn't exists"
+  warning "'~/01735455.subkeys.gpg-key' doesn't exists"
 fi
 
 substep "Creating '~/.ssh'"
@@ -683,19 +666,19 @@ mkdir -p "~/.ssh"
 
 substep "Importing '~/fredriksavje.pub'"
 if [ -e "~/fredriksavje.pub" ]; then
-	cp ~/fredriksavje.pub ~/.ssh/id_rsa.pub
-	rm ~/fredriksavje.pub
+  cp ~/fredriksavje.pub ~/.ssh/id_rsa.pub
+  rm ~/fredriksavje.pub
 else
-	warning "'~/fredriksavje.pub' doesn't exists"
+  warning "'~/fredriksavje.pub' doesn't exists"
 fi
 
 substep "Importing '~/fredriksavje.ssh'"
 if [ -e "~/fredriksavje.ssh" ]; then
-	cp ~/fredriksavje.ssh ~/.ssh/id_rsa
-	chmod 600 ~/.ssh/id_rsa
-	rm ~/fredriksavje.ssh
+  cp ~/fredriksavje.ssh ~/.ssh/id_rsa
+  chmod 600 ~/.ssh/id_rsa
+  rm ~/fredriksavje.ssh
 else
-	warning "'~/fredriksavje.ssh' doesn't exists"
+  warning "'~/fredriksavje.ssh' doesn't exists"
 fi
 
 step "Check so keys are deleted:"
@@ -704,6 +687,11 @@ subaction "~/01735455.subkeys.gpg-key"
 subaction "~/fredriksavje.pub"
 subaction "~/fredriksavje.ssh"
 waitforenter
+
+step "Sign file to store passphrase in keychain"
+echo "test" > ~/tmpsign
+gpg --output ~/tmpsign.sig --sign ~/tmpsign
+rm ~/tmpsign ~/tmpsign.sig
 
 
 ###############################################################################
