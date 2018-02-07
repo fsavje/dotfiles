@@ -14,6 +14,12 @@ if dein#load_state('~/.local/share/dein')
 	call dein#add('lervag/vimtex')
 	call dein#add('w0rp/ale')
 
+	call dein#add('Shougo/deoplete.nvim')
+	if !has('nvim')
+	  call dein#add('roxma/nvim-yarp')
+	  call dein#add('roxma/vim-hug-neovim-rpc')
+	endif
+
 	call dein#add('junegunn/goyo.vim')
 	call dein#add('junegunn/limelight.vim')
 	call dein#add('tpope/vim-surround')
@@ -33,11 +39,17 @@ filetype plugin indent on
 syntax enable
 colorscheme molokai
 
+hi clear SpellBad
+hi SpellBad cterm=underline
+
 if dein#check_install()
 	call dein#install()
 endif
 
 "End dein package manager-------------------------
+
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.tex setlocal spell
 
 let g:vimtex_view_method = 'skim'
 
@@ -53,9 +65,24 @@ function! ViewCallbackHook()
 	call b:vimtex.viewer.view('')
 endfunction
 
+let g:ale_linters = {
+\   'tex': ['chktex', 'lacheck', 'proselint'],
+\}
+
+let g:deoplete#enable_at_startup = 1
+
+if !exists('g:deoplete#omni#input_patterns')
+	let g:deoplete#omni#input_patterns = {}
+endif
+let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+
 inoremap jk <esc>
 
+nmap <silent> <c-k> <Plug>(ale_previous_wrap)
+nmap <silent> <c-j> <Plug>(ale_next_wrap)
+
 nnoremap <c-d> :update<cr>:VimtexCompile<cr>
+inoremap <c-d> <nop>
 "inoremap <c-d> <esc>:update<cr>:VimtexCompile<cr>i
 
 inoremap <esc> <nop>

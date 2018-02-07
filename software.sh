@@ -49,45 +49,46 @@ brew update
 brew upgrade
 
 step "Installing software"
-brew install ack
-brew install bash
-brew install homebrew/versions/bash-completion2
-brew install binutils
-brew install cmake
-brew install cmocka
-brew install coreutils
-brew install diff-pdf
-brew install dockutil
-brew install dos2unix
-brew install doxygen
-brew install duti
-brew install findutils
-brew install gawk
-brew install git
-brew install gnu-sed
-brew install gnupg
-brew install gnupg2
-brew install htop
-brew install mas
-brew install macvim
-#brew install neovim
-brew install p7zip
-brew install pcre
-brew install pinentry-mac
-brew install python
-brew install python3
-brew install proselint
-brew install rename
-#brew install ruby
-brew install trash
-brew install tree
-brew install watch
-brew install wget
-brew install xz
+brew install ack \
+  bash \
+  homebrew/versions/bash-completion2 \
+  binutils \
+  cmake \
+  cmocka \
+  coreutils \
+  diff-pdf \
+  dockutil \
+  dos2unix \
+  doxygen \
+  duti \
+  findutils \
+  gawk \
+  git \
+  gnu-sed \
+  gnupg \
+  gnupg2 \
+  htop \
+  mas \
+  macvim \
+  p7zip \
+  pcre \
+  pinentry-mac \
+  python \
+  python3 \
+  proselint \
+  rename \
+  trash \
+  tree \
+  watch \
+  wget \
+  xz
+
 brew install --with-default-names homebrew/dupes/grep
 brew install homebrew/dupes/openssh
 brew install homebrew/science/r
 
+# brew install neovim
+# brew install ruby
 
 ###############################################################################
 section "Installing apps from Cask"
@@ -106,17 +107,18 @@ brew cask install tex-live-utility
 brew cask install carbon-copy-cloner
 #brew cask install cyberduck
 brew cask install dropbox
+brew cask install etcher
 brew cask install epichrome
 brew cask install fantastical
 brew cask install firefox
 #brew cask install flux
 brew cask install github-desktop
 brew cask install google-chrome
+brew cask install jabref
 brew cask install kaleidoscope
 brew cask install keepingyouawake
 brew cask install macvim
 brew cask install mailmate
-brew cask install mailspring
 brew cask install marked
 #brew cask install mendeley-desktop
 #brew cask install mountain-duck
@@ -137,14 +139,14 @@ brew cask install vlc
 
 # Quick look plugins
 # https://github.com/sindresorhus/quick-look-plugins
-brew cask install qlcolorcode
-brew cask install qlstephen
-brew cask install qlmarkdown
-brew cask install quicklook-json
-brew cask install quicklook-csv
-brew cask install betterzipql
-brew cask install qlimagesize
-brew cask install webpquicklook
+brew cask install qlcolorcode \
+  qlstephen \
+  qlmarkdown \
+  quicklook-json \
+  quicklook-csv \
+  betterzipql \
+  qlimagesize \
+  webpquicklook
 
 
 ###############################################################################
@@ -198,6 +200,7 @@ sudo tlmgr install \
   eulerpx \
   eulervm \
   fontaxes \
+  framed \
   inconsolata \
   latexmk \
   ly1 \
@@ -213,6 +216,7 @@ sudo tlmgr install \
   soul \
   tabu \
   textpos \
+  titling \
   tocloft \
   varwidth
 

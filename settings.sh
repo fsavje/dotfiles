@@ -434,6 +434,14 @@ rm installer.sh
 
 
 ###############################################################################
+section "MailMate"
+###############################################################################
+
+mkdir -p "${HOME}/Library/Application Support/MailMate/Resources/KeyBindings"
+ln -s "${DOTFILES_DIR}/dots/MailMate/CustomKey.plist" "${HOME}/Library/Application Support/MailMate/Resources/KeyBindings/CustomKey.plist"
+
+
+###############################################################################
 section "Sublime Text"
 ###############################################################################
 

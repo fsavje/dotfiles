@@ -1,0 +1,6 @@
+{
+	"@s" = "archive:";
+	"@x" = "deleteMessage:";
+	"@g" = ( "setTag:", "Action", "moveToMailbox:", "inbox" );
+	"@e" = ( "removeTag:", "Action", "archive:" );
+}
