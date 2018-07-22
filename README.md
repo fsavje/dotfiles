@@ -87,6 +87,10 @@ brew update
 brew upgrade
 ```
 
+# brew install macvim 
+# OR
+# brew cask install macvim
+
 * Install software from Homebrew
 ```bash
 brew install \
@@ -111,7 +115,6 @@ brew install \
   grep \
   htop \
   mas \
-  macvim \
   p7zip \
   pcre \
   pinentry-mac \
@@ -152,7 +155,6 @@ brew cask install \
   jabref \
   kaleidoscope \
   keepingyouawake \
-  macvim \
   mailmate \
   marked \
   numi \
