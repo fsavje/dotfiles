@@ -92,7 +92,7 @@ brew upgrade
 brew install \
   ack \
   bash \
-  homebrew/versions/bash-completion2 \
+  bash-completion@2 \
   binutils \
   cmake \
   cmocka \
@@ -117,7 +117,6 @@ brew install \
   pinentry-mac \
   python \
   python3 \
-  proselint \
   rename \
   trash \
   tree \
@@ -129,6 +128,7 @@ brew install \
 # brew install neovim
 # brew install openssh
 # brew install ruby
+# brew install proselint
 ```
 
 * Install BasicTeX from http://www.tug.org/mactex/morepackages.html
