@@ -131,16 +131,39 @@ mas install 1056643111  # Clocker
 mas install 1218241304  # Finances 2
 ```
 
-# Unused
-#mas install 585829637  # Todoist
-#mas install 775737590  # iA Writer
-#mas install 1071518638 # Pomodoro Done
+* Other Software
+  - Cisco VPN Anyconnect
+    - https://software.yale.edu
+  - Microsoft Office
+    - https://software.yale.edu
+    - Only Word, Excel and Powerpoint
+  - PaperCut Client Software
+    - https://ypps.yale.edu/blueprint/papercut/client-downloads
+
+* Make SMS app
+```bash
+open -Wa "Epichrome"
+#  - Save as: SMS
+#  - Where: Applications
+#  - Name: SMS
+#  - Url: https://messages.android.com
+#  - Icon: install/icons/android-messages.icns
 ```
 
+* Make Messenger app
+```bash
+open -Wa "Epichrome"
+#  - Save as: Messenger
+#  - Where: Applications
+#  - Name: Messenger
+#  - Url: https://www.messenger.com
+#  - Icon: install/icons/messenger.icns
+```
 
 * Install LaTeX packages
 ```bash
 # Update tlmgr and existing packages
+# Restart bash if `tlmgr` isn't found
 sudo tlmgr update --self
 sudo tlmgr update --all
 
@@ -178,55 +201,27 @@ sudo tlmgr install \
   titling \
   tocloft \
   varwidth
+```
 
-# Install non-free fonts
+* Install non-free fonts
+```bash
 wget https://tug.org/fonts/getnonfreefonts/install-getnonfreefonts
 sudo texlua install-getnonfreefonts
 rm install-getnonfreefonts
 sudo getnonfreefonts --sys --all
 ```
 
-
 * Install R packages
-
 ```bash
 R -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)'
 R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos = "http://cloud.r-project.org")'
 ```
 
-* Make Epichrome apps
 
-```bash
-# Copy Icons
-cp ${DOTFILES_DIR}/misc/{fastmail,gmail,messenger}.icns ${HOME}/Downloads/
+# Settings
 
-open -Wa "Epichrome"
-# Make Fastmail app
-#  - Save as: Fastmail
-#  - Where: Applications
-#  - Name: Fastmail
-#  - Url: https://www.fastmail.com/mail/Inbox/?u=3ccb4100
-#  - Icon: ~/Downloads/fastmail.icns
+## macOS settings
 
-open -Wa "Epichrome"
-# Make Gmail app
-#  - Save as: Gmail
-#  - Where: Applications
-#  - Name: Gmail
-#  - Url: https://mail.google.com/mail/u/0/
-#  - Icon: ~/Downloads/gmail.icns
-
-open -Wa "Epichrome"
-# Make Messenger app
-#  - Save as: Messenger
-#  - Where: Applications
-#  - Name: Messenger
-#  - Url: https://www.messenger.com
-#  - Icon: ~/Downloads/messenger.icns
-
-# Remove Icons
-rm ${HOME}/Downloads/{fastmail,gmail,messenger}.icns
-```
 
 
 
