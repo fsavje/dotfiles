@@ -1,70 +1,17 @@
 # Fredrik's dotfiles
 
-This repo provides instructions for a fresh installation of a macOS exactly how Fredrik wants it.
-
-
-### Inspiration
-
-* [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles)
-* [Vítor’s dotfiles](https://github.com/vitorgalvao/dotfiles)
-* [bash-it](https://github.com/Bash-it/bash-it)
-
-
-# Instructions
-
-### Prepare install
-
-* Disable screensaver
-```bash
-caffeinate &
-```
+# Prepare install
 
 * Install updates and Xcode
 ```bash
 softwareupdate --install --all
 xcode-select --install
-sudo xcodebuild -license
-# Install full Xcode if needed
 ```
 
 * Make dotfile folder and clone git repo
 ```bash
-DOTFILES_DIR="${HOME}/.dotfiles"
-mkdir -m 700 $DOTFILES_DIR && cd $DOTFILES_DIR
-git clone https://github.com/fsavje/dotfiles.git .
-cd ${HOME}
-```
-
-* Personal information
-```bash
-# Information for login screen
-LOGIN_NAME="NAME"
-LOGIN_PHONE="PHONE"
-LOGIN_EMAIL="EMAIL"
-
-# Information for Mac App Store
-MAS_EMAIL="EMAIL"
-MAS_PASSWORD="PASSWORD"
-
-# Information for git
-GIT_USERNAME="NAME"
-GIT_EMAIL="EMAIL"
-GIT_GPGKEY="KEY"
-```
-
-* Backup Script
-```bash
-backup_file() {
-  # Delete if symlink
-  if readlink $1 >/dev/null 2>&1; then
-    unlink $1
-  fi
-
-  # Otherwise, make backup
-  if [ -e "$1" ]; then
-    mv $1 $1.bak$(date +%s)
-  fi
-}
+mkdir -m 700 ${HOME}/dotfiles && cd ${HOME}/dotfiles
+git clone https://github.com/fsavje/dotfiles.git . && cd ${HOME}
 ```
 
 
@@ -75,33 +22,21 @@ backup_file() {
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-* Install Homebrew Cask
-```bash
-# Probably not needed anymore
-# brew tap caskroom/cask
-```
-
 * Update Homebrew
 ```bash
 brew update
 brew upgrade
 ```
 
-# brew install macvim 
-# OR
-# brew cask install macvim
-
 * Install software from Homebrew
 ```bash
 brew install \
-  ack \
   bash \
   bash-completion@2 \
   binutils \
   cmake \
   cmocka \
   coreutils \
-  diff-pdf \
   dockutil \
   dos2unix \
   doxygen \
@@ -111,7 +46,6 @@ brew install \
   git \
   gnu-sed \
   gnupg \
-  gnupg2 \
   grep \
   htop \
   mas \
@@ -126,38 +60,34 @@ brew install \
   watch \
   wget \
   xz
-
-# Unused
-# brew install neovim
-# brew install openssh
-# brew install ruby
-# brew install proselint
 ```
 
 * Install BasicTeX from http://www.tug.org/mactex/morepackages.html
 
 * Install R from https://cran.r-project.org/index.html
 
+* Install 1password v6 from https://1password.com
+
 * Install apps from Cask
 ```bash
 brew cask install \
-  1password \
+  adobe-acrobat-pro \
   alfred \
   arq \
   carbon-copy-cloner \
+  cyberduck \
   dropbox \
-  etcher \
   epichrome \
   fantastical \
   firefox \
-  github-desktop \
+  github \
   google-chrome \
   jabref \
   kaleidoscope \
   keepingyouawake \
+  macvim \
   mailmate \
   marked \
-  numi \
   opera \
   rstudio \
   skim \
@@ -169,45 +99,37 @@ brew cask install \
   sublime-text \
   tex-live-utility \
   transmission \
+  tripmode \
   vlc
+```
 
-# Quick look plugins
-# https://github.com/sindresorhus/quick-look-plugins
+* Install Quick look plugins (https://github.com/sindresorhus/quick-look-plugins)
+```bash
 brew cask install \
   qlcolorcode \
   qlstephen \
   qlmarkdown \
   quicklook-json \
   quicklook-csv \
-  betterzipql \
   qlimagesize \
-  webpquicklook
-
-# Unused
-#brew cask install cyberduck
-#brew cask install flux
-#brew cask install little-snitch
-#brew cask install malwarebytes
-#brew cask install mendeley-desktop
-#brew cask install mountain-duck
-#brew cask install sourcetree
-#brew cask install texstudio
+  qlvideo
 ```
-
 
 * Install apps from Mac App Store
 ```bash
 # Sign into MAS
-mas signin "${MAS_EMAIL}" "${MAS_PASSWORD}"
+mas signin "MAS_EMAIL" "MAS_PASSWORD"
 
 # Install MAS apps
 mas install 392408028   # Paprika
 mas install 461504587   # Trello
 mas install 500154009   # Bitdefender Virus Scanner
+mas install 531349534   # Tadam
 mas install 568494494   # Pocket
 mas install 924726344   # Deliveries
 mas install 1056643111  # Clocker
 mas install 1218241304  # Finances 2
+```
 
 # Unused
 #mas install 585829637  # Todoist
