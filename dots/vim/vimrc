@@ -1,55 +1,76 @@
-"dein package manager-----------------------------
+" vim-plug package manager -----------------------------
 
-set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
+call plug#begin('~/.vim/plugged')
 
-if dein#load_state('~/.local/share/dein')
-	call dein#begin('~/.local/share/dein')
+Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'lervag/vimtex'
 
-	call dein#add('~/.local/share/dein/repos/github.com/Shougo/dein.vim')
+"Plug 'junegunn/vim-easy-align'
+"Plug 'tpope/vim-surround'
+"Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/limelight.vim'
 
-	" Plugins
-	call dein#add('editorconfig/editorconfig-vim')
-	call dein#add('airblade/vim-gitgutter')
-	call dein#add('tomasr/molokai')
-	call dein#add('lervag/vimtex')
-	call dein#add('w0rp/ale')
+"call dein#add('Shougo/deoplete.nvim')
+"if !has('nvim')
+""  call dein#add('roxma/nvim-yarp')
+""  call dein#add('roxma/vim-hug-neovim-rpc')
+"endif
 
-	call dein#add('Shougo/deoplete.nvim')
-	if !has('nvim')
-	  call dein#add('roxma/nvim-yarp')
-	  call dein#add('roxma/vim-hug-neovim-rpc')
-	endif
+"Themes
+Plug 'junegunn/seoul256.vim'
+Plug 'dikiaap/minimalist'
+Plug 'tomasr/molokai'
+Plug 'joshdick/onedark.vim'
 
-	call dein#add('junegunn/goyo.vim')
-	call dein#add('junegunn/limelight.vim')
-	call dein#add('tpope/vim-surround')
-	call dein#add('itchyny/lightline.vim')
-	call dein#add('junegunn/seoul256.vim')
+call plug#end()
 
-	"call dein#add('lifepillar/vim-solarized8')
-	"call dein#add('romainl/flattened')
-	"call dein#add('dikiaap/minimalist')
-	"call dein#add('altercation/vim-colors-solarized')
 
-	call dein#end()
-	call dein#save_state()
-endif
+" misc config -----------------------------
 
 filetype plugin indent on
+
 syntax enable
-colorscheme molokai
+
+colorscheme onedark
 
 hi clear SpellBad
 hi SpellBad cterm=underline
 
-if dein#check_install()
-	call dein#install()
-endif
-
-"End dein package manager-------------------------
-
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.tex setlocal spell
+
+inoremap jk <esc>
+
+inoremap <esc> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+
+" ale -----------------------------
+
+let g:ale_linters = {
+\   'tex': ['chktex', 'lacheck'],
+\}
+
+nmap <silent> <c-k> <Plug>(ale_previous_wrap)
+nmap <silent> <c-j> <Plug>(ale_next_wrap)
+
+
+" deoplete -----------------------------
+
+"let g:deoplete#enable_at_startup = 1
+"if !exists('g:deoplete#omni#input_patterns')
+"	let g:deoplete#omni#input_patterns = {}
+"endif
+"let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+
+
+" vimtex -----------------------------
 
 let g:vimtex_view_method = 'skim'
 
@@ -65,28 +86,6 @@ function! ViewCallbackHook()
 	call b:vimtex.viewer.view('')
 endfunction
 
-let g:ale_linters = {
-\   'tex': ['chktex', 'lacheck', 'proselint'],
-\}
-
-let g:deoplete#enable_at_startup = 1
-
-if !exists('g:deoplete#omni#input_patterns')
-	let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
-
-inoremap jk <esc>
-
-nmap <silent> <c-k> <Plug>(ale_previous_wrap)
-nmap <silent> <c-j> <Plug>(ale_next_wrap)
-
 nnoremap <c-d> :update<cr>:VimtexCompile<cr>
 inoremap <c-d> <nop>
 "inoremap <c-d> <esc>:update<cr>:VimtexCompile<cr>i
-
-inoremap <esc> <nop>
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
