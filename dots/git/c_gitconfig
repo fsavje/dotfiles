@@ -6,7 +6,7 @@
 [core]
 
 	# Use custom `.gitignore`
-	excludesfile = ~/.dotfiles/dots/git/s_gitignore
+	excludesfile = ~/dotfiles/dots/git/s_gitignore
 
 	# Treat spaces before tabs and all kinds of trailing whitespace as an error
 	# [default] trailing-space: looks for spaces at the end of a line
@@ -20,6 +20,12 @@
 	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
+
+[user]
+
+	name = Fredrik Savje
+	email = fred_gh@savje.com
+	signingkey = 01735455
 
 [commit]
 
