@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Source config if running interactively
-[ -n "$PS1" ] && source ${HOME}/.bash_profile
+[ -n "$PS1" ] && source ${HOME}/bash_profile

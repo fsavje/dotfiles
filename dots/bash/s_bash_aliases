@@ -10,6 +10,7 @@ alias -- --="cd - > /dev/null"
 # Shortcuts
 alias cdd="cd ~/Dropbox"
 alias cdp="cd ~/Dropbox/Projects"
+alias cdpp="cd ~/Dropbox/Papers"
 alias cddl="cd ~/Downloads"
 alias cddt="cd ~/Desktop"
 
@@ -49,9 +50,6 @@ command -v sha1sum > /dev/null || alias sha1sum="shasum"
 # IP addresses
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
-
-# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update_everything='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup'
 
 # Show/hide hidden files in Finder
 alias showhidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"

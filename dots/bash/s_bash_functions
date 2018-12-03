@@ -20,9 +20,22 @@ function manpdf() {
 	man -t "$1" | open -f -a /Applications/Preview.app/
 }
 
+# Backup and delete file
+function backup_delete() {
+  # Delete if symlink
+  if readlink $1 >/dev/null 2>&1; then
+    unlink $1
+  fi
+
+  # Otherwise, make backup
+  if [ -e "$1" ]; then
+    mv $1 $1.bak$(date +%s)
+  fi
+}
+
 # Extra many types of compressed packages
 # Credit: http://nparikh.org/notes/zshrc.txt
-extract() {
+function extract() {
 	if [ -f "$1" ]; then
 		case "$1" in
 			*.tar.bz2)  tar -jxvf "$1"                        ;;

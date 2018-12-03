@@ -23,13 +23,13 @@ bashc_white=$(tput setaf 15)
 bashc_yellow=$(tput setaf 136)
 
 # Load config files
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_path" ] &&         source ${HOME}/.dotfiles/dots/bash/s_bash_path
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_exports" ] &&      source ${HOME}/.dotfiles/dots/bash/s_bash_exports
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_env" ] &&          source ${HOME}/.dotfiles/dots/bash/s_bash_env
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_functions" ] &&    source ${HOME}/.dotfiles/dots/bash/s_bash_functions
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_aliases" ] &&      source ${HOME}/.dotfiles/dots/bash/s_bash_aliases
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_completions" ] &&  source ${HOME}/.dotfiles/dots/bash/s_bash_completions
-[ -r "${HOME}/.dotfiles/dots/bash/s_bash_prompt" ] &&       source ${HOME}/.dotfiles/dots/bash/s_bash_prompt
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_path" ] &&         source ${HOME}/dotfiles/dots/bash/s_bash_path
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_exports" ] &&      source ${HOME}/dotfiles/dots/bash/s_bash_exports
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_env" ] &&          source ${HOME}/dotfiles/dots/bash/s_bash_env
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_functions" ] &&    source ${HOME}/dotfiles/dots/bash/s_bash_functions
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_aliases" ] &&      source ${HOME}/dotfiles/dots/bash/s_bash_aliases
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_completions" ] &&  source ${HOME}/dotfiles/dots/bash/s_bash_completions
+[ -r "${HOME}/dotfiles/dots/bash/s_bash_prompt" ] &&       source ${HOME}/dotfiles/dots/bash/s_bash_prompt
 
 # Bash options
 
