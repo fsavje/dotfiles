@@ -512,6 +512,9 @@ ln -s ${HOME}/dotfiles/dots/R/Rprofile ${HOME}/.Rprofile
 ## MacVim
 
 ```bash
+# Install python neovim (for deoplete)
+pip3 install --user pynvim
+
 # Install vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

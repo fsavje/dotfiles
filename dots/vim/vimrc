@@ -8,16 +8,15 @@ Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'lervag/vimtex'
 
+" deoplete
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
 "Plug 'junegunn/vim-easy-align'
 "Plug 'tpope/vim-surround'
 "Plug 'junegunn/goyo.vim'
 "Plug 'junegunn/limelight.vim'
-
-"call dein#add('Shougo/deoplete.nvim')
-"if !has('nvim')
-""  call dein#add('roxma/nvim-yarp')
-""  call dein#add('roxma/vim-hug-neovim-rpc')
-"endif
 
 "Themes
 Plug 'junegunn/seoul256.vim'
@@ -35,6 +34,8 @@ filetype plugin indent on
 syntax enable
 
 colorscheme onedark
+
+set encoding=utf-8
 
 hi clear SpellBad
 hi SpellBad cterm=underline
@@ -54,8 +55,8 @@ noremap <right> <nop>
 " ale -----------------------------
 
 let g:ale_linters = {
-\   'tex': ['chktex', 'lacheck'],
-\}
+  \ 'tex': ['chktex', 'lacheck'],
+  \}
 
 nmap <silent> <c-k> <Plug>(ale_previous_wrap)
 nmap <silent> <c-j> <Plug>(ale_next_wrap)
@@ -63,11 +64,21 @@ nmap <silent> <c-j> <Plug>(ale_next_wrap)
 
 " deoplete -----------------------------
 
-"let g:deoplete#enable_at_startup = 1
-"if !exists('g:deoplete#omni#input_patterns')
-"	let g:deoplete#omni#input_patterns = {}
-"endif
-"let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+let g:deoplete#enable_at_startup = 1
+
+call deoplete#custom#var('omni', 'input_patterns', {
+	\ 'tex': g:vimtex#re#deoplete
+	\})
+
+
+" lightline -----------------------------
+
+set laststatus=2
+set noshowmode
+
+let g:lightline = {
+  \ 'colorscheme': 'one',
+  \}
 
 
 " vimtex -----------------------------
@@ -78,8 +89,6 @@ let g:vimtex_compiler_latexmk = {
 	\ 'backend' : 'jobs',
 	\ 'continuous' : 0,
 	\}
-
-let g:vimtex_quickfix_autojump = 1
 
 let g:vimtex_view_skim_hook_callback = 'ViewCallbackHook'
 function! ViewCallbackHook()
