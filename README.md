@@ -225,38 +225,38 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
 * General: Default web browser: "Opera"
 
 * Dock:
-        - Position on screen: "Right"
-        - Enable "Automatically hide and show dock"
-        - Enable "Minimize windows into application icon"
+    - Position on screen: "Right"
+    - Enable "Automatically hide and show dock"
+    - Enable "Minimize windows into application icon"
 
 * Language & Region
-        - Update English
-            - First day of the week: "Monday"
-            - Time format: "24-hour time"
-            - Temperature: "Celsius"
-            - "Advanced...", Measurement units: "Metric"
-        - Add Swedish
+    - Update English
+        - First day of the week: "Monday"
+        - Time format: "24-hour time"
+        - Temperature: "Celsius"
+        - "Advanced...", Measurement units: "Metric"
+    - Add Swedish
 
 * Security & Privacy
-        - Require password after: "15 minutes"
-        - Enable firewall
+    - Require password after: "15 minutes"
+    - Enable firewall
 
 * Keyboard
-        - Add Swedish Keyboard
-        - Remap Caps Lock to Ctrl, "Modifier Keys... > Caps Lock Key"
-        - Keyboard Shortcuts:
-            - Input Sources > alt+cmd+space @ 'Select next source in Input menu'
-            - Spotlight > Uncheck 'Show Spotlight search'
-            - Spotlight > Uncheck 'Show Finder search window'
+    - Add Swedish Keyboard
+    - Remap Caps Lock to Ctrl, "Modifier Keys... > Caps Lock Key"
+    - Keyboard Shortcuts:
+        - Input Sources > alt+cmd+space @ 'Select next source in Input menu'
+        - Spotlight > Uncheck 'Show Spotlight search'
+        - Spotlight > Uncheck 'Show Finder search window'
 
 * Track Pad: Enable "Tap to click"
 
 * Users & Groups
-        - Update photo
-        - Disable guest account
+    - Update photo
+    - Disable guest account
 
 * Date & Time
-        - Enable "Use a 24-hour clock"
+    - Enable "Use a 24-hour clock"
 
 * Other
 ```bash
@@ -437,6 +437,7 @@ touch ${HOME}/.hushlogin
 * Link config files
 ```bash
 mkdir -p ${HOME}/.gnupg
+chmod 700 ${HOME}/.gnupg
 ln -s ${HOME}/dotfiles/dots/gpg/l_gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 ln -s ${HOME}/dotfiles/dots/gpg/l_gpg.conf ${HOME}/.gnupg/gpg.conf
 ```
