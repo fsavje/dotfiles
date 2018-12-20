@@ -71,6 +71,10 @@ nmap <silent> <c-j> <Plug>(ale_next_wrap)
 
 let g:deoplete#enable_at_startup = 1
 
+call deoplete#custom#option('sources', {
+	\ 'tex': ['omni'],
+	\})
+
 call deoplete#custom#var('omni', 'input_patterns', {
 	\ 'tex': g:vimtex#re#deoplete
 	\})
