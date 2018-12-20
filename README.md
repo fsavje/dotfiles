@@ -500,9 +500,15 @@ sudo rm ${HOME}/fredriksavje.pub ${HOME}/fredriksavje.ssh
 ln -s ${HOME}/dotfiles/dots/editorconfig/editorconfig ${HOME}/.editorconfig
 ```
 
+* Tex Live
+```bash
+# Link chktexrc config
+ln -s ${HOME}/dotfiles/dots/texlive/chktexrc ${HOME}/.chktexrc
+```
+
 * Git
 ```bash
-# Copy gitconfig
+# Link gitconfig
 ln -s ${HOME}/dotfiles/dots/git/c_gitconfig ${HOME}/.gitconfig
 ```
 
