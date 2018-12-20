@@ -173,6 +173,7 @@ sudo tlmgr install \
     bbm \
     bbm-macros \
     cabin \
+    chktex \
     collectbox \
     collection-fontsextra \
     collection-fontsrecommended \
@@ -184,6 +185,7 @@ sudo tlmgr install \
     fontaxes \
     framed \
     inconsolata \
+    lacheck \
     latexmk \
     ly1 \
     mathalfa \
@@ -676,6 +678,8 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 
 * Tadam
 
+* Adobe Acrobat
+
 * Microsoft Office
 
 
@@ -703,59 +707,11 @@ done
     - See current extensions binding: `duti -x sh`
 
 
-# Backup
+## Clean up
 
-## AWS through Arq
+* Restart
 
-* Connect to AWS (credentials in 1Password)
-
-* New Bucket marked with today's date
-    - Backup dir: Home
-    - Exclude "No-backup" folder
-    - Encryption password in 1Password
-    - Backup daily at 16:00
-
-
-
-
-###############################################################################
-section "Backup hard drives"
-###############################################################################
-
-
-step "Partitions"
-subaction "Backup 500GB"
-subaction "Mirror 400GB"
-subaction "Install 10GB"
-
-step "Backup - Time Machine"
-subaction "Select Backup partition"
-
-step "Mirror - Carbon Copy Cloner"
-subaction "Source: Whole disk"
-subaction "Destination: Mirror partition"
-subaction "Run a daily basis"
-subaction "Run task when system next wakes"
-subaction "Advanced > Destination Volume > Unmount when done"
-
-step "Make bootable image on Install partition"
-subaction "Only do if macOS has been updated"
-subaction "Download latest macOS from Mac App Store"
-subaction "Make bootable image: https://support.apple.com/en-us/HT201372"
-subaction "E.g., \"sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia --volume /Volumes/XXXX --applicationpath /Applications/Install\ macOS\ Sierra.app --nointeraction\""
-subaction "Copy 1Password opvault to disk"
-
-step "Prevent mounting"
-subaction "Prevent Mirror and Install from mounting at start-up"
-subaction "See: https://discussions.apple.com/docs/DOC-7942"
-
-waitforenter
-
-
-
-
-
-
+* System Preferences > Users & Groups > Login Items
 
 
 

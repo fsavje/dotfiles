@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
+Plug 'dbmrq/vim-dialect'
 Plug 'airblade/vim-gitgutter'
 Plug 'lervag/vimtex'
 
@@ -33,12 +34,14 @@ filetype plugin indent on
 
 syntax enable
 
+set breakindent
+
 colorscheme onedark
 
 set encoding=utf-8
 
-hi clear SpellBad
-hi SpellBad cterm=underline
+set spelllang=en_us
+set spellfile=$HOME/dotfiles/dots/vim/en.utf-8.add
 
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.tex setlocal spell
@@ -53,6 +56,8 @@ noremap <right> <nop>
 
 
 " ale -----------------------------
+
+let g:ale_linters_explicit = 1
 
 let g:ale_linters = {
   \ 'tex': ['chktex', 'lacheck'],
