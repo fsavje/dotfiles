@@ -49,6 +49,7 @@ brew install \
     grep \
     htop \
     mas \
+    md5deep \
     p7zip \
     pcre \
     pinentry-mac \
@@ -185,7 +186,6 @@ sudo tlmgr install \
     fontaxes \
     framed \
     inconsolata \
-    lacheck \
     latexmk \
     ly1 \
     mathalfa \
