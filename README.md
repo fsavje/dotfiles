@@ -147,7 +147,7 @@ open -Wa "Epichrome"
 #  - Save as: SMS
 #  - Where: Applications
 #  - Name: SMS
-#  - Url: https://messages.android.com
+#  - Url: https://messages.google.com/web
 #  - Icon: install/icons/android-messages.icns
 ```
 
@@ -194,6 +194,7 @@ sudo tlmgr install \
     mweights \
     newpx \
     newtx \
+    pgfplots \
     preprint \
     preview \
     sectsty \
