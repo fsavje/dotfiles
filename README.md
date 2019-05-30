@@ -14,6 +14,10 @@ mkdir -m 700 ${HOME}/dotfiles && cd ${HOME}/dotfiles
 git clone https://github.com/fsavje/dotfiles.git . && cd ${HOME}
 ```
 
+* Make folders
+```bash
+mkdir ${HOME}/No-backup
+```
 
 # Install Software
 
@@ -35,11 +39,9 @@ brew install \
     bash-completion@2 \
     binutils \
     cmake \
-    cmocka \
     coreutils \
     dockutil \
     dos2unix \
-    doxygen \
     duti \
     findutils \
     gawk \
@@ -61,6 +63,8 @@ brew install \
     watch \
     wget \
     xz
+
+# Extra: cmocka doxygen
 ```
 
 * Install BasicTeX from http://www.tug.org/mactex/morepackages.html
@@ -68,6 +72,8 @@ brew install \
 * Install R from https://cran.r-project.org/index.html
 
 * Install 1password v6 from https://1password.com
+
+* Install DisplayLink drivers from https://www.displaylink.com/downloads
 
 * Install apps from Cask
 ```bash
@@ -90,6 +96,7 @@ brew cask install \
     mailmate \
     marked \
     opera \
+    presentation \
     rstudio \
     skim \
     skype \
@@ -118,18 +125,15 @@ brew cask install \
 
 * Install apps from Mac App Store
 ```bash
-# Sign into MAS
-mas signin "MAS_EMAIL" "MAS_PASSWORD"
-
 # Install MAS apps
-mas install 392408028   # Paprika
-mas install 461504587   # Trello
-mas install 500154009   # Bitdefender Virus Scanner
-mas install 531349534   # Tadam
-mas install 568494494   # Pocket
-mas install 924726344   # Deliveries
-mas install 1056643111  # Clocker
-mas install 1218241304  # Finances 2
+mas open 392408028   # Paprika
+mas open 461504587   # Trello
+mas open 500154009   # Bitdefender Virus Scanner
+mas open 531349534   # Tadam
+mas open 568494494   # Pocket
+mas open 924726344   # Deliveries
+mas open 1056643111  # Clocker
+mas open 1218241304  # Finances 2
 ```
 
 * Other Software
@@ -138,6 +142,8 @@ mas install 1218241304  # Finances 2
     - Microsoft Office
         - https://software.yale.edu
         - Only Word, Excel and Powerpoint
+    - Sony Digital Paper App
+        - https://www.sony.com/electronics/support/articles/S1F1667
     - PaperCut Client Software
         - https://ypps.yale.edu/blueprint/papercut/client-downloads
 
@@ -188,7 +194,6 @@ sudo tlmgr install \
     inconsolata \
     latexmk \
     ly1 \
-    mathalfa \
     mathdesign \
     multirow \
     mweights \
@@ -230,7 +235,6 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
 * Dock:
     - Position on screen: "Right"
     - Enable "Automatically hide and show dock"
-    - Enable "Minimize windows into application icon"
 
 * Language & Region
     - Update English
@@ -253,6 +257,9 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
         - Spotlight > Uncheck 'Show Finder search window'
 
 * Track Pad: Enable "Tap to click"
+
+* Bluetooth
+	- Show Bluetooth in menu bar
 
 * Users & Groups
     - Update photo
@@ -327,6 +334,7 @@ dockutil --no-restart --add "/Applications/MacVim.app"
 dockutil --no-restart --add "/Applications/Sublime Text.app"
 dockutil --no-restart --add "/Applications/GitHub Desktop.app"
 dockutil --no-restart --add "/Applications/JabRef.app"
+dockutil --no-restart --add "/Applications/Digital Paper App.app"
 dockutil --no-restart --add "/Applications/RStudio.app"
 dockutil --no-restart --add "/Applications/Finances.app"
 dockutil --no-restart --add "/Applications/Deliveries.app"
@@ -339,28 +347,36 @@ killall Dock
 ## Finder
 
 * Preferences:
-    - New Finder windows show: "HOME"
-    - Update Sidebar
-    - Enable "Show all filename extensions"
-    - Disable "Show warning before changing an extension"
-    - Enable "Keep folders on top"
-    - When performing a search: "Search the current folder"
+	- General:
+		- Only show external disks on desktop
+		- New Finder windows show: "HOME"
+	- Sidebar:
+		- Applications, Desktop, Downloads, HOME, All locations
+	- Advanced:
+		- Show all filename extensions
+		- Disable "Show warning before changing an extension"
+		- Enable "Keep folders on top"
+		- When performing a search: "Search the current folder"
 
 * Organize Favorite folders as:
     - Applications
     - HOME
     - Dropbox
-    - Dropbox/Projects
-    - Dropbox/Papers
+    - Projects
+    - Papers
+    - Reading
     - Downloads
     - Desktop
 
 * Enable: "View > Show Path Bar"
 
+* In HOME folder:
+	- "View > Show View Options"
+	- Show Library Folder
+
 * Other settings:
 ```bash
-# Unhide '~/Library' and '/Volumes'
-chflags nohidden "${HOME}/Library"
+# Unhide '/Volumes'
 sudo chflags nohidden /Volumes
 
 # Hide '~/Applications', '~/Documents', '~/Movies', '~/Music' and '~/Pictures'
@@ -426,21 +442,23 @@ touch ${HOME}/.hushlogin
     - Disable photo upload
     - Disable share screenshots
 
+* Notifications
+	- Uncheck New files and edits
+
 
 ## 1Password
 
 * General > Enable "Always keep 1password mini running"
 * General > Disable "Show mini app icon in menu bar"
 * Browsers > Disable "Automatically sign in after filling usernames and passwords"
-* Browsers > Disable "Autosave"
+* Browsers > Disable "Detect new username"
 
 
 ## GPG
 
 * Link config files
 ```bash
-mkdir -p ${HOME}/.gnupg
-chmod 700 ${HOME}/.gnupg
+mkdir  -m 700 -p ${HOME}/.gnupg
 ln -s ${HOME}/dotfiles/dots/gpg/l_gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 ln -s ${HOME}/dotfiles/dots/gpg/l_gpg.conf ${HOME}/.gnupg/gpg.conf
 ```
@@ -580,12 +598,9 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
 * Download Package Control and make config
 ```bash
 SUBLIME_LIB="${HOME}/Library/Application Support/Sublime Text 3"
-wget -O "${SUBLIME_LIB}/Installed Packages/Package Control.sublime-package" \
-    "https://packagecontrol.io/Package Control.sublime-package"
 
-rm -f "${SUBLIME_LIB}/Packages/User/Package Control.sublime-settings"
-ln -s "${HOME}/dotfiles/dots/sublime/Package Control.sublime-settings" \
-            "${SUBLIME_LIB}/Packages/User/Package Control.sublime-settings"
+cd "${SUBLIME_LIB}/Packages"
+git clone https://github.com/sindresorhus/editorconfig-sublime
 
 rm -f "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
 ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
@@ -598,9 +613,14 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 * Preferences:
     - Enable "Block Ads"
     - Disable "Wallpapers"
-    - Disable "Show bookmarks bar"
-    - Disable start tab ads
+    - Don't show sidebar
     - Disable "Offer to save passwords"
+    - Disable "Save and fill payment methods"
+    - Disable "Save and fill addresses"
+    - Hide search bar
+    - Hide Speed Dial
+    - Show full URL in address bar
+    - Ask where to save each file before downloading
     - Enable "Hold command-q"
 
 * Sign in to websites:
@@ -623,6 +643,7 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
     - Day ends at: "20:00"
     - Enable "Hide Fantastical in menu bar"
     - Add Google calendar
+    - Select "Fredrik" as default cal
     - Open maps in "Google"
 
 
@@ -637,25 +658,51 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
     - Disable "Show notification after each successful backup"
 
 
+## Sony Digital Paper App
+
+* Connect to Reader
+
+* Set Sync Folders
+    - Books
+    - Incoming / Digital Paper
+    - Papers
+    - To read
+
+
 ## Other apps
 
-* Finances
-    - Enable cloud sync
+* Adobe Acrobat
+    - Log in with yale email
 
 * Carbon Copy Cloner
     - Enter license (stored in 1Password)
 
+* Chrome
+
+* Clocker
+
 * Cyberduck
     - Enter license (open file stored in 1Password)
+
+* Finances
+    - Enable cloud sync
+
+* Firefox
 
 * Github Desktop
     - Log in
 
-* Google Chrome
-    - Log in
+* JabRef
+    - Open papers.bib
+    - Import preferences
 
 * Kaleidoscope
     - Enter license (stored in 1Password)
+
+* KeepingYouAwake
+    - Start at Login
+
+* Macvim
 
 * Marked 2
     - Enter license (stored in 1Password)
@@ -663,8 +710,8 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 * Messenger
     - Configure and log in
 
-* SMS
-    - Configure and log in
+* Microsoft Office
+    - Log in with yale email
 
 * Pocket
     - Log in
@@ -672,8 +719,17 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 * Paprika
     - Log in
 
+* RStudio
+    - Update packages
+
+* Slack
+
+* SMS
+    - Configure and log in
+
 * Steam
     - Log in
+    - Disable start on login
 
 * Spotify
     - Log in
@@ -681,13 +737,18 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 * Skype
     - Log in
 
-* Clocker
-
 * Tadam
+    - Open when log in
 
-* Adobe Acrobat
+* TeX Live Utility
 
-* Microsoft Office
+* Trello
+    - Log in
+
+* System Preferences > Users & Groups > Login Items
+    - Add MailMate
+    - Remove Steam
+    - Remove Adobe Resource Synchronizer
 
 
 ## Extensions
@@ -697,6 +758,11 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 #for ext in {c,cpp,css,h,js,json,md,py,pyx,pxd,rs,sh,toml,txt,xml}; do
 #   duti -s com.sublimetext.3 "${ext}" all
 #done
+
+# Macvim
+for ext in {md,txt}; do
+    duti -s org.vim.MacVim "${ext}" all
+done
 
 # RStudio
 for ext in {R}; do
@@ -718,16 +784,9 @@ done
 
 * Restart
 
-* System Preferences > Users & Groups > Login Items
-
-
 
 ### Inspiration
 
 * [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles)
 * [Vítor’s dotfiles](https://github.com/vitorgalvao/dotfiles)
 * [bash-it](https://github.com/Bash-it/bash-it)
-
-
-
-
