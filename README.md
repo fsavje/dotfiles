@@ -492,6 +492,12 @@ rm ${HOME}/tmpsign ${HOME}/tmpsign.sig
 
 ## SSH
 
+* Config
+```bash
+# Make .editorconfig file
+ln -s ${HOME}/dotfiles/dots/ssh/config ${HOME}/.ssh/config
+```
+
 * Export keys from 1password
     - Export 'fredriksavje.pub' to ~
     - Export 'fredriksavje.ssh' to ~
@@ -508,7 +514,10 @@ sudo rm ${HOME}/fredriksavje.pub ${HOME}/fredriksavje.ssh
 
 * Ensure keys are deleted
 
-* TO ADD: Use keychain for SSH passphrase
+* Add key to keychain
+```bash
+ssh-add -K ${HOME}/.ssh/id_rsa
+```
 
 
 ## Link dotfiles
