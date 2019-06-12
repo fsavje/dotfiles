@@ -40,6 +40,7 @@ brew install \
     binutils \
     cmake \
     coreutils \
+    djvu2pdf \
     dockutil \
     dos2unix \
     duti \
@@ -650,6 +651,7 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
     - Start week on: "Monday"
     - Day starts at: "09:00"
     - Day ends at: "20:00"
+    - Remove "Mini window keyboard shortcut"
     - Enable "Hide Fantastical in menu bar"
     - Add Google calendar
     - Select "Fredrik" as default cal
