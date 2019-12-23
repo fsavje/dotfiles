@@ -54,6 +54,7 @@ brew install \
     mas \
     md5deep \
     p7zip \
+    pandoc \
     pcre \
     pinentry-mac \
     python \
@@ -90,6 +91,7 @@ brew cask install \
     firefox \
     github \
     google-chrome \
+    hugo \
     jabref \
     kaleidoscope \
     keepingyouawake \
@@ -208,6 +210,7 @@ sudo tlmgr install \
     tabu \
     textpos \
     titling \
+    tikzpicture \
     tocloft \
     varwidth
 ```
