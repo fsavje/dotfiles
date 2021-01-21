@@ -2,6 +2,11 @@
 
 ## Prepare install
 
+* Change to Bash
+```bash
+chsh -s /bin/bash
+```
+
 * Install updates and Xcode
 ```bash
 softwareupdate --install --all
@@ -51,6 +56,7 @@ brew install \
     gnupg \
     grep \
     htop \
+    hugo \
     mas \
     md5deep \
     p7zip \
@@ -83,6 +89,7 @@ brew cask install \
     adobe-acrobat-pro \
     alfred \
     arq \
+    atom \
     carbon-copy-cloner \
     cyberduck \
     dropbox \
@@ -91,8 +98,8 @@ brew cask install \
     firefox \
     github \
     google-chrome \
-    hugo \
     jabref \
+    julia \
     kaleidoscope \
     keepingyouawake \
     macvim \
@@ -196,6 +203,7 @@ sudo tlmgr install \
     framed \
     inconsolata \
     latexmk \
+    latexpand \
     ly1 \
     mathdesign \
     multirow \
@@ -210,9 +218,9 @@ sudo tlmgr install \
     tabu \
     textpos \
     titling \
-    tikzpicture \
     tocloft \
-    varwidth
+    varwidth \
+    xpatch
 ```
 
 * Install non-free fonts
@@ -236,6 +244,8 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
 
 * General: Default web browser: "Opera"
 
+* Desktop & Screen Saver: Start after > Never
+
 * Dock:
     - Position on screen: "Right"
     - Enable "Automatically hide and show dock"
@@ -248,9 +258,16 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
         - "Advanced...", Measurement units: "Metric"
     - Add Swedish
 
+* Users & Groups
+    - Update photo
+    - Disable guest account
+
 * Security & Privacy
     - Require password after: "15 minutes"
     - Enable firewall
+
+* Bluetooth
+	- Show Bluetooth in menu bar
 
 * Keyboard
     - Add Swedish Keyboard
@@ -262,15 +279,9 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
 
 * Track Pad: Enable "Tap to click"
 
-* Bluetooth
-	- Show Bluetooth in menu bar
-
-* Users & Groups
-    - Update photo
-    - Disable guest account
-
 * Date & Time
     - Enable "Use a 24-hour clock"
+
 
 * Other
 ```bash
@@ -368,7 +379,7 @@ killall Dock
     - Dropbox
     - Projects
     - Papers
-    - Reading
+    - Digital Paper
     - Downloads
     - Desktop
 
@@ -499,6 +510,7 @@ rm ${HOME}/tmpsign ${HOME}/tmpsign.sig
 * Config
 ```bash
 # Make .editorconfig file
+mkdir -p ${HOME}/.ssh
 ln -s ${HOME}/dotfiles/dots/ssh/config ${HOME}/.ssh/config
 ```
 
@@ -508,7 +520,6 @@ ln -s ${HOME}/dotfiles/dots/ssh/config ${HOME}/.ssh/config
 
 * Import keys
 ```bash
-mkdir -p ${HOME}/.ssh
 cp ${HOME}/fredriksavje.pub ${HOME}/.ssh/id_rsa.pub
 cp ${HOME}/fredriksavje.ssh ${HOME}/.ssh/id_rsa
 chmod 600 ${HOME}/.ssh/id_rsa
@@ -600,6 +611,7 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
 * Enter license (stored in 1Password)
 
 * Preferences:
+    - Default email client: Mailmate.app
     - Enable "Bond font for unread messages"
     - Double click "opens a message in a new window"
 
@@ -625,6 +637,7 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 
 * Preferences:
     - Enable "Block Ads"
+    - Enable "Block Trackers"
     - Disable "Wallpapers"
     - Don't show sidebar
     - Disable "Offer to save passwords"
@@ -694,6 +707,7 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 * Chrome
 
 * Clocker
+    - Add Stockholm, New York, San Francisco
 
 * Cyberduck
     - Enter license (open file stored in 1Password)
@@ -774,7 +788,7 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 #done
 
 # Macvim
-for ext in {md,txt}; do
+for ext in {md,tex,txt}; do
     duti -s org.vim.MacVim "${ext}" all
 done
 
