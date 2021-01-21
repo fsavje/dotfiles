@@ -217,6 +217,7 @@ sudo tlmgr install \
     soul \
     tabu \
     textpos \
+    titlesec \
     titling \
     tocloft \
     varwidth \
