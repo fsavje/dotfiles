@@ -2,7 +2,7 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'dbmrq/vim-dialect'
@@ -100,11 +100,6 @@ let g:vimtex_compiler_latexmk = {
 	\ 'backend' : 'jobs',
 	\ 'continuous' : 0,
 	\}
-
-let g:vimtex_view_skim_hook_callback = 'ViewCallbackHook'
-function! ViewCallbackHook()
-	call b:vimtex.viewer.view('')
-endfunction
 
 nnoremap <c-d> :update<cr>:VimtexCompile<cr>
 vnoremap <c-d> :update<cr>:VimtexCompile<cr>
