@@ -28,7 +28,7 @@ mkdir ${HOME}/No-backup
 
 * Install Homebrew
 ```bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 * Update Homebrew
@@ -57,7 +57,6 @@ brew install \
     grep \
     htop \
     hugo \
-    mas \
     md5deep \
     p7zip \
     pandoc \
@@ -72,39 +71,46 @@ brew install \
     wget \
     xz
 
-# Extra: cmocka doxygen
+# Extra: cmocka doxygen mas
 ```
 
-* Install BasicTeX from http://www.tug.org/mactex/morepackages.html
+* Dropbox: https://www.dropbox.com
 
-* Install R from https://cran.r-project.org/index.html
+* 1password v6: https://1password.com
 
-* Install 1password v6 from https://1password.com
+* Arq v5: https://www.arqbackup.com/downloadarq5/
 
-* Install DisplayLink drivers from https://www.displaylink.com/downloads
+* BasicTeX: http://www.tug.org/mactex/morepackages.html
+
+* R: https://cran.r-project.org/index.html
+
+* Julia: https://julialang.org
+```bash
+ln -s /Applications/Julia-1.5.app/Contents/Resources/julia/bin/julia /usr/local/bin/julia
+```
+
+* Macvim: https://macvim-dev.github.io/macvim/
+
+* DisplayLink drivers: https://www.displaylink.com/downloads
 
 * Install apps from Cask
 ```bash
-brew cask install \
+brew install --cask \
     adobe-acrobat-pro \
     alfred \
-    arq \
     atom \
     carbon-copy-cloner \
-    cyberduck \
-    dropbox \
     epichrome \
     fantastical \
     firefox \
     github \
     google-chrome \
     jabref \
-    julia \
     kaleidoscope \
     keepingyouawake \
-    macvim \
     mailmate \
     marked \
+    messenger \
     opera \
     presentation \
     rstudio \
@@ -117,34 +123,34 @@ brew cask install \
     sublime-text \
     tex-live-utility \
     transmission \
-    tripmode \
-    vlc
+    typora \
+    vlc \
+    zoom
+
+# Extra: cyberduck tripmode
 ```
 
 * Install Quick look plugins (https://github.com/sindresorhus/quick-look-plugins)
 ```bash
-brew cask install \
+brew install --cask \
+    apparency \
+    suspicious-package \
     qlcolorcode \
-    qlstephen \
-    qlmarkdown \
-    quicklook-json \
-    quicklook-csv \
     qlimagesize \
-    qlvideo
+    qlmarkdown \
+    qlstephen \
+    qlvideo \
+    quicklook-json
 ```
 
-* Install apps from Mac App Store
-```bash
-# Install MAS apps
-mas open 392408028   # Paprika
-mas open 461504587   # Trello
-mas open 500154009   # Bitdefender Virus Scanner
-mas open 531349534   # Tadam
-mas open 568494494   # Pocket
-mas open 924726344   # Deliveries
-mas open 1056643111  # Clocker
-mas open 1218241304  # Finances 2
-```
+* Install apps from Mac App Store:
+   - Bitdefender Virus Scanner
+   - Clocker
+   - Deliveries
+   - Finances 2
+   - Paprika
+   - Tadam
+   - Trello
 
 * Other Software
     - Cisco VPN Anyconnect
@@ -165,16 +171,6 @@ open -Wa "Epichrome"
 #  - Name: SMS
 #  - Url: https://messages.google.com/web
 #  - Icon: install/icons/android-messages.icns
-```
-
-* Make Messenger app
-```bash
-open -Wa "Epichrome"
-#  - Save as: Messenger
-#  - Where: Applications
-#  - Name: Messenger
-#  - Url: https://www.messenger.com
-#  - Icon: install/icons/messenger.icns
 ```
 
 * Install LaTeX packages
@@ -274,14 +270,11 @@ R -e 'install.packages(c("devtools", "ggplot2", "testthat", "roxygen2"), repos =
     - Add Swedish Keyboard
     - Remap Caps Lock to Ctrl, "Modifier Keys... > Caps Lock Key"
     - Keyboard Shortcuts:
-        - Input Sources > alt+cmd+space @ 'Select next source in Input menu'
+        - Input Sources > control+option+space @ 'Select next source in Input menu'
         - Spotlight > Uncheck 'Show Spotlight search'
         - Spotlight > Uncheck 'Show Finder search window'
 
 * Track Pad: Enable "Tap to click"
-
-* Date & Time
-    - Enable "Use a 24-hour clock"
 
 
 * Other
@@ -315,18 +308,6 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "
 # Stop iTunes from responding to keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
-# Remove Display Icon from Menu Bar
-defaults write com.apple.airplay showInMenuBarIfPresent -bool false
-defaults write com.apple.systemuiserver menuExtras -array \
-    "/System/Library/CoreServices/Menu Extras/Clock.menu" \
-    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-    "/System/Library/CoreServices/Menu Extras/TextInput.menu"
-
-# Reload UI
-killall SystemUIServer
-
 # Enable Dock autohide
 defaults write com.apple.dock autohide-time-modifier -float 0
 defaults write com.apple.Dock autohide-delay -float 0
@@ -335,24 +316,25 @@ defaults write com.apple.Dock autohide-delay -float 0
 defaults write com.apple.dock tilesize -int 36
 
 # Organize Dock icons
-dockutil --no-restart --remove all
-dockutil --no-restart --add "/Applications/Opera.app"
-dockutil --no-restart --add "/Applications/Fantastical 2.app"
-dockutil --no-restart --add "/Applications/MailMate.app"
-dockutil --no-restart --add "/Applications/Messenger.app"
-dockutil --no-restart --add "/Applications/SMS.app"
-dockutil --no-restart --add "/Applications/Trello.app"
-dockutil --no-restart --add "/Applications/Slack.app"
-dockutil --no-restart --add "/Applications/1Password 6.app"
-dockutil --no-restart --add "/Applications/Spotify.app"
-dockutil --no-restart --add "/Applications/Utilities/Terminal.app"
-dockutil --no-restart --add "/Applications/MacVim.app"
-dockutil --no-restart --add "/Applications/Sublime Text.app"
-dockutil --no-restart --add "/Applications/GitHub Desktop.app"
-dockutil --no-restart --add "/Applications/JabRef.app"
-dockutil --no-restart --add "/Applications/Digital Paper App.app"
-dockutil --no-restart --add "/Applications/RStudio.app"
-dockutil --no-restart --add "/Applications/Finances.app"
+dockutil --no-restart --remove all && \
+dockutil --no-restart --add "/Applications/Opera.app" && \
+dockutil --no-restart --add "/Applications/Fantastical.app" && \
+dockutil --no-restart --add "/Applications/MailMate.app" && \
+dockutil --no-restart --add "/Applications/Trello.app" && \
+dockutil --no-restart --add "/Applications/Messenger.app" && \
+dockutil --no-restart --add "/Applications/SMS.app" && \
+dockutil --no-restart --add "/Applications/Slack.app" && \
+dockutil --no-restart --add "/Applications/1Password 6.app" && \
+dockutil --no-restart --add "/Applications/Spotify.app" && \
+dockutil --no-restart --add "/Applications/Utilities/Terminal.app" && \
+dockutil --no-restart --add "/Applications/MacVim.app" && \
+dockutil --no-restart --add "/Applications/Sublime Text.app" && \
+dockutil --no-restart --add "/Applications/GitHub Desktop.app" && \
+dockutil --no-restart --add "/Applications/Typora.app" && \
+dockutil --no-restart --add "/Applications/JabRef.app" && \
+dockutil --no-restart --add "/Applications/Digital Paper App.app" && \
+dockutil --no-restart --add "/Applications/RStudio.app" && \
+dockutil --no-restart --add "/Applications/Finances.app" && \
 dockutil --no-restart --add "/Applications/Deliveries.app"
 
 # Restart Dock
@@ -381,8 +363,8 @@ killall Dock
     - Projects
     - Papers
     - Digital Paper
-    - Downloads
     - Desktop
+    - Downloads
 
 * Enable: "View > Show Path Bar"
 
@@ -396,7 +378,6 @@ killall Dock
 sudo chflags nohidden /Volumes
 
 # Hide '~/Applications', '~/Documents', '~/Movies', '~/Music' and '~/Pictures'
-chflags hidden "${HOME}/Applications"
 chflags hidden "${HOME}/Documents"
 chflags hidden "${HOME}/Movies"
 chflags hidden "${HOME}/Music"
@@ -570,13 +551,13 @@ pip3 install --user pynvim
 
 # Install vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Link config file
 ln -s "${HOME}/dotfiles/dots/vim/vimrc" "${HOME}/.vimrc"
 
 # Install packages
-mvim -c PlugInstall
+/Applications/MacVim.app/Contents/bin/mvim -c PlugInstall
 ```
 
 ## Skim
@@ -606,6 +587,10 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
 
 * Set Hotkey to Cmd + Space
 
+* Appearance > Options
+    - Hide hat on Alfred window
+    - Hide menu bar icon
+
 
 ## MailMate
 
@@ -621,16 +606,16 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
 
 * Enter license (stored in 1Password)
 
-* Download Package Control and make config
+* Skip: Download Package Control and make config
 ```bash
-SUBLIME_LIB="${HOME}/Library/Application Support/Sublime Text 3"
+#SUBLIME_LIB="${HOME}/Library/Application Support/Sublime Text 3"
 
-cd "${SUBLIME_LIB}/Packages"
-git clone https://github.com/sindresorhus/editorconfig-sublime
+#cd "${SUBLIME_LIB}/Packages"
+#git clone https://github.com/sindresorhus/editorconfig-sublime
 
-rm -f "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
-ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
-            "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
+#rm -f "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
+#ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
+#            "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
 ```
 
 
@@ -657,7 +642,6 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 
 * Install plugins:
     - 1Password: https://agilebits.com/onepassword/extensions
-    - Pocket: https://addons.opera.com/en/extensions/details/pocket-formerly-read-it-later/
 
 
 ## Fantastical
@@ -741,9 +725,6 @@ ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
 
 * Microsoft Office
     - Log in with yale email
-
-* Pocket
-    - Log in
 
 * Paprika
     - Log in
