@@ -101,8 +101,12 @@ let g:vimtex_compiler_latexmk = {
 	\ 'continuous' : 0,
 	\}
 
+g:vimtex_view_automatic = 1
+
 nnoremap <c-d> :update<cr>:VimtexCompile<cr>
 vnoremap <c-d> :update<cr>:VimtexCompile<cr>
+nnoremap <c-w> :VimtexView<cr>
+vnoremap <c-w> :VimtexView<cr>
 inoremap <c-d> <nop>
 "inoremap <c-d> <esc>:update<cr>:VimtexCompile<cr>i
 
