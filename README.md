@@ -183,6 +183,8 @@ sudo tlmgr update --all
 # Install new packages
 sudo tlmgr install \
     adjustbox \
+    algorithm2e \
+    apacite \
     bbm \
     bbm-macros \
     cabin \
@@ -197,11 +199,13 @@ sudo tlmgr install \
     eulervm \
     fontaxes \
     framed \
+    ifoddpage \
     inconsolata \
     latexmk \
     latexpand \
     ly1 \
     mathdesign \
+    minitoc \
     multirow \
     mweights \
     newpx \
@@ -209,6 +213,7 @@ sudo tlmgr install \
     pgfplots \
     preprint \
     preview \
+    relsize \
     sectsty \
     soul \
     tabu \
