@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
+# Temporary
+export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python3.9/site-packages"
+
 # Source config if running interactively
 [ -n "$PS1" ] && source ${HOME}/bash_profile
