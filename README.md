@@ -76,9 +76,9 @@ brew install \
 
 * Dropbox: https://www.dropbox.com
 
-* 1password v6: https://1password.com
+* 1password: https://1password.com
 
-* Arq v5: https://www.arqbackup.com/downloadarq5/
+* Arq: https://www.arqbackup.com/downloadarq5/
 
 * BasicTeX: http://www.tug.org/mactex/morepackages.html
 
@@ -91,16 +91,11 @@ ln -s /Applications/Julia-1.5.app/Contents/Resources/julia/bin/julia /usr/local/
 
 * Macvim: https://macvim-dev.github.io/macvim/
 
-* DisplayLink drivers: https://www.displaylink.com/downloads
-
 * Install apps from Cask
 ```bash
 brew install --cask \
     adobe-acrobat-pro \
-    alfred \
-    atom \
     carbon-copy-cloner \
-    epichrome \
     fantastical \
     firefox \
     github \
@@ -112,35 +107,19 @@ brew install --cask \
     marked \
     messenger \
     opera \
-    presentation \
     rstudio \
     skim \
-    skype \
     slack \
-    spectacle \
     spotify \
     steam \
     sublime-text \
+    rectangle \
     tex-live-utility \
-    transmission \
     typora \
     vlc \
     zoom
 
-# Extra: cyberduck tripmode
-```
-
-* Install Quick look plugins (https://github.com/sindresorhus/quick-look-plugins)
-```bash
-brew install --cask \
-    apparency \
-    suspicious-package \
-    qlcolorcode \
-    qlimagesize \
-    qlmarkdown \
-    qlstephen \
-    qlvideo \
-    quicklook-json
+# Extra: alfred cyberduck presentation skype spectacle transmission tripmode
 ```
 
 * Install apps from Mac App Store:
@@ -148,6 +127,7 @@ brew install --cask \
    - Clocker
    - Deliveries
    - Finances 2
+   - Hidden Bar
    - Paprika
    - Tadam
    - Trello
@@ -163,14 +143,6 @@ brew install --cask \
     - PaperCut Client Software
         - https://ypps.yale.edu/blueprint/papercut/client-downloads
 
-* Make SMS app
-```bash
-open -Wa "Epichrome"
-#  - Save as: SMS
-#  - Where: Applications
-#  - Name: SMS
-#  - Url: https://messages.google.com/web
-#  - Icon: install/icons/android-messages.icns
 ```
 
 * Install LaTeX packages
@@ -326,21 +298,20 @@ dockutil --no-restart --add "/Applications/Opera.app" && \
 dockutil --no-restart --add "/Applications/Fantastical.app" && \
 dockutil --no-restart --add "/Applications/MailMate.app" && \
 dockutil --no-restart --add "/Applications/Trello.app" && \
+dockutil --no-restart --add "/Applications/Messages.app" && \
 dockutil --no-restart --add "/Applications/Messenger.app" && \
-dockutil --no-restart --add "/Applications/SMS.app" && \
 dockutil --no-restart --add "/Applications/Slack.app" && \
-dockutil --no-restart --add "/Applications/1Password 6.app" && \
+dockutil --no-restart --add "/Applications/1Password.app" && \
 dockutil --no-restart --add "/Applications/Spotify.app" && \
-dockutil --no-restart --add "/Applications/Utilities/Terminal.app" && \
 dockutil --no-restart --add "/Applications/MacVim.app" && \
 dockutil --no-restart --add "/Applications/Sublime Text.app" && \
+dockutil --no-restart --add "/Applications/RStudio.app" && \
+dockutil --no-restart --add "/Applications/Utilities/Terminal.app" && \
 dockutil --no-restart --add "/Applications/GitHub Desktop.app" && \
 dockutil --no-restart --add "/Applications/Typora.app" && \
-dockutil --no-restart --add "/Applications/JabRef.app" && \
 dockutil --no-restart --add "/Applications/Digital Paper App.app" && \
-dockutil --no-restart --add "/Applications/RStudio.app" && \
-dockutil --no-restart --add "/Applications/Finances.app" && \
-dockutil --no-restart --add "/Applications/Deliveries.app"
+dockutil --no-restart --add "/Applications/JabRef.app" && \
+dockutil --no-restart --add "/Applications/Launchpad.app"
 
 # Restart Dock
 killall Dock
@@ -354,7 +325,7 @@ killall Dock
 		- Only show external disks on desktop
 		- New Finder windows show: "HOME"
 	- Sidebar:
-		- Applications, Desktop, Downloads, HOME, All locations
+		- Recents, AirDrop, Applications, Desktop, Downloads, HOME, All locations
 	- Advanced:
 		- Show all filename extensions
 		- Disable "Show warning before changing an extension"
@@ -418,11 +389,11 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 ## Bash
 
 ```bash
-# Add /usr/local/bin/bash to /etc/shells
-echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
+# Add /opt/homebrew/bin/bash to /etc/shells
+echo '/opt/homebrew/bin/bash' | sudo tee -a /etc/shells
 
 # Change shell for user
-chsh -s /usr/local/bin/bash
+chsh -s /opt/homebrew/bin/bash
 
 # Link Bash config files
 ln -s ${HOME}/dotfiles/dots/bash/l_bash_profile ${HOME}/.bash_profile
@@ -437,8 +408,6 @@ touch ${HOME}/.hushlogin
 ## Dropbox
 
 * Open and login
-
-* Download "1Password.opvault" manually
 
 * Preferences:
     - Disable photo upload
@@ -571,32 +540,6 @@ ln -s "${HOME}/dotfiles/dots/vim/vimrc" "${HOME}/.vimrc"
     - PDF-TeX Sync support, preset: "MacVim"
 
 
-## Spectacle
-
-* Copy config
-```bash
-mkdir -p "${HOME}/Library/Application Support/Spectacle"
-cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Application Support/Spectacle/Shortcuts.json"
-```
-
-* Open Spectacle app
-    - Enable "Launch Spectacle at login"
-    - Run ... "as a background application"
-
-
-## Alfred
-
-* Activate Powerpack (stored in 1Password)
-
-* Set Sync Folder to "Dropbox/Privat"
-
-* Set Hotkey to Cmd + Space
-
-* Appearance > Options
-    - Hide hat on Alfred window
-    - Hide menu bar icon
-
-
 ## MailMate
 
 * Enter license (stored in 1Password)
@@ -605,23 +548,6 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
     - Default email client: Mailmate.app
     - Enable "Bond font for unread messages"
     - Double click "opens a message in a new window"
-
-
-## Sublime Text
-
-* Enter license (stored in 1Password)
-
-* Skip: Download Package Control and make config
-```bash
-#SUBLIME_LIB="${HOME}/Library/Application Support/Sublime Text 3"
-
-#cd "${SUBLIME_LIB}/Packages"
-#git clone https://github.com/sindresorhus/editorconfig-sublime
-
-#rm -f "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
-#ln -s "${HOME}/dotfiles/dots/sublime/Preferences.sublime-settings" \
-#            "${SUBLIME_LIB}/Packages/User/Preferences.sublime-settings"
-```
 
 
 ## Opera
@@ -659,9 +585,6 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
     - Day ends at: "20:00"
     - Remove "Mini window keyboard shortcut"
     - Enable "Hide Fantastical in menu bar"
-    - Add Google calendar
-    - Select "Fredrik" as default cal
-    - Open maps in "Google"
 
 
 ## Arq Backup
@@ -738,9 +661,6 @@ cp -f "${HOME}/dotfiles/install/spectacle/Shortcuts.json" "${HOME}/Library/Appli
     - Update packages
 
 * Slack
-
-* SMS
-    - Configure and log in
 
 * Steam
     - Log in
