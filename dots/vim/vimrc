@@ -34,6 +34,9 @@ filetype plugin indent on
 
 syntax enable
 
+set pythonthreedll=/usr/local/Frameworks/Python.framework/Versions/3.9/Python
+set pythonthreehome=/usr/local/Frameworks/Python.framework/Versions/3.9
+
 set breakindent
 
 colorscheme onedark
@@ -71,11 +74,7 @@ nmap <silent> <c-j> <Plug>(ale_next_wrap)
 
 " deoplete -----------------------------
 
-let g:deoplete#enable_at_startup = 1
-
-call deoplete#custom#option('sources', {
-	\ 'tex': ['omni'],
-	\})
+let g:deoplete#enable_at_startup = 0
 
 call deoplete#custom#var('omni', 'input_patterns', {
 	\ 'tex': g:vimtex#re#deoplete
